@@ -33,12 +33,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1"+System.lineSeparator()+
-            "3"+System.lineSeparator()+
-            "str 2"+System.lineSeparator()+
-            "0"+System.lineSeparator()
-        );
+        assertSysoutContains("str 1");
+        assertSysoutContains("3");
+        assertSysoutContains("str 2");
+        assertSysoutContains("0");
         //endregion
     }
 
@@ -53,13 +51,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1"+System.lineSeparator()+
-            "10"+System.lineSeparator()+
-            Integer.MAX_VALUE + ""+System.lineSeparator()+
-            "str 2"+System.lineSeparator()+
-            "0"+System.lineSeparator()
-        );
+
+        assertSysoutContains("str 1");
+        assertSysoutContains("10");
+        assertSysoutContains("" + Integer.MAX_VALUE);
+        assertSysoutContains("str 2");
+        assertSysoutContains("0");
+
         //endregion
     }
 
@@ -74,13 +72,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1"+System.lineSeparator()+
-            "10"+System.lineSeparator()+
-            Byte.MAX_VALUE + ""+System.lineSeparator()+
-            "str 2"+System.lineSeparator()+
-            "0"+System.lineSeparator()
-        );
+
+        assertSysoutContains("str 1");
+        assertSysoutContains("10");
+        assertSysoutContains("" + Byte.MAX_VALUE);
+        assertSysoutContains("str 2");
+        assertSysoutContains("0");
         //endregion
     }
 
@@ -105,6 +102,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
             "str 2"+System.lineSeparator()+
             "str 3 (x3)"+System.lineSeparator()
         );
+        assertSysoutContains("str 1");
+        assertSysoutContains("str 2 (x2)");
+        assertSysoutContains("0");
+        assertSysoutContains("str 2");
+        assertSysoutContains("str 3 (x3)");
         //endregion
     }
 
