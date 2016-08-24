@@ -1,11 +1,14 @@
 package com.acme.edu;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Logger {
     private static Object savedObj = null;
+    private static int stringsCount = 1;
 
-    private static void printSavedObject(Object mes) {
+    private static void printSavedObjectAndSaveNewOne(Object mes) {
         if(savedObj != null) {
             writer(decor(savedObj) + savedObj);
         }
@@ -47,7 +50,7 @@ public class Logger {
      * and adds the result of last logging request.
      */
     public static void stopLogging() {
-        printSavedObject(null);
+        printSavedObjectAndSaveNewOne(null);
     }
 
     /**
@@ -55,7 +58,7 @@ public class Logger {
      * @param mes boolean
      */
     public static void log (boolean mes) {
-        printSavedObject(mes);
+        printSavedObjectAndSaveNewOne(mes);
     }
 
     /**
@@ -65,13 +68,12 @@ public class Logger {
     public static void log (byte mes) {
         if (checkWithPrevMessage(mes)) {
             if(Byte.MAX_VALUE - (byte) savedObj < mes) {
-                writer(decor(savedObj) + (byte) savedObj);
-                savedObj = Byte.MAX_VALUE;
+                printSavedObjectAndSaveNewOne(Byte.MAX_VALUE);
             } else {
                 savedObj = (byte)((byte)savedObj + mes);
             }
         } else {
-            printSavedObject(mes);
+            printSavedObjectAndSaveNewOne(mes);
         }
     }
 
@@ -82,13 +84,12 @@ public class Logger {
     public static void log (int mes) {
         if (checkWithPrevMessage(mes)) {
             if(Integer.MAX_VALUE - (int) savedObj < mes) {
-                writer(decor(savedObj) + savedObj);
-                savedObj = Integer.MAX_VALUE;
+                printSavedObjectAndSaveNewOne(Integer.MAX_VALUE);
             } else {
                 savedObj = (int) savedObj + mes;
             }
         } else {
-            printSavedObject(mes);
+            printSavedObjectAndSaveNewOne(mes);
         }
     }
 
@@ -97,7 +98,7 @@ public class Logger {
      * @param mes char
      */
     public static void log (char mes) {
-        printSavedObject(mes);
+        printSavedObjectAndSaveNewOne(mes);
     }
 
     /**
@@ -105,7 +106,17 @@ public class Logger {
      * @param mes String
      */
     public static void log (String mes) {
-        printSavedObject(mes);
+        if(checkWithPrevMessage(mes)) {
+            Pattern p = Pattern.compile("^"+mes);
+            Matcher m = p.matcher((String)savedObj);
+            if(m.matches()) {
+                savedObj = mes + " (x" + (++stringsCount) + ")";
+            } else {
+                printSavedObjectAndSaveNewOne(mes);
+            }
+        } else {
+            printSavedObjectAndSaveNewOne(mes);
+        }
     }
 
     /**
@@ -113,6 +124,6 @@ public class Logger {
      * @param mes Object
      */
     public static void log (Object mes) {
-        printSavedObject(mes);
+        printSavedObjectAndSaveNewOne(mes);
     }
 }
