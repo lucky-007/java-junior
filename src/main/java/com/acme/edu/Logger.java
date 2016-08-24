@@ -1,6 +1,5 @@
 package com.acme.edu;
 
-import java.lang.reflect.Array;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,26 +38,26 @@ public class Logger {
             case "[[I":
                 int[][] matrix = ((int[][])mes);
                 objectNote = "{" + System.lineSeparator();
-                for (int[] aMatrix : matrix) {
+                for (int[] row : matrix) {
                     objectNote += "{";
-                    for (int anAMatrix : aMatrix) {
-                        objectNote += anAMatrix + ", ";
+                    for (int element : row) {
+                        objectNote += element + ", ";
                     }
                     objectNote = objectNote.substring(0, objectNote.length() - 2) + "}" + System.lineSeparator();
                 }
                 objectNote += "}";
                 break;
             case "[[[[I":
-                int[][][][] multimatrix = ((int[][][][])mes);
+                int[][][][] multimatrix4 = ((int[][][][])mes);
                 objectNote = "{" + System.lineSeparator();
-                for (int[][][] aMultimatrix : multimatrix) {
+                for (int[][][] multimatrix3 : multimatrix4) {
                     objectNote += "{" + System.lineSeparator();
-                    for (int[][] anAMultimatrix : aMultimatrix) {
+                    for (int[][] multimatrix2 : multimatrix3) {
                         objectNote += "{" + System.lineSeparator();
-                        for (int[] anAnAMultimatrix : anAMultimatrix) {
+                        for (int[] multimatrix1 : multimatrix2) {
                             objectNote += "{" + System.lineSeparator();
-                            for (int anAnAnAMultimatrix : anAnAMultimatrix) {
-                                objectNote += anAnAnAMultimatrix + ", ";
+                            for (int element : multimatrix1) {
+                                objectNote += element + ", ";
                             }
                             objectNote = objectNote.substring(0, objectNote.length() - 2) + System.lineSeparator() + "}" + System.lineSeparator();
                         }
@@ -134,7 +133,7 @@ public class Logger {
     public static void log (byte mes) {
         if (checkWithPrevMessage(mes)) {
             if(Byte.MAX_VALUE - (byte) savedObj < mes) {
-                printSavedObjectAndSaveNewOne(Byte.MAX_VALUE);
+                printSavedObjectAndSaveNewOne(mes);
             } else {
                 savedObj = (byte)((byte)savedObj + mes);
             }
@@ -150,7 +149,7 @@ public class Logger {
     public static void log (int mes) {
         if (checkWithPrevMessage(mes)) {
             if(Integer.MAX_VALUE - (int) savedObj < mes) {
-                printSavedObjectAndSaveNewOne(Integer.MAX_VALUE);
+                printSavedObjectAndSaveNewOne(mes);
             } else {
                 savedObj = (int) savedObj + mes;
             }
@@ -173,12 +172,13 @@ public class Logger {
      */
     public static void log (String mes) {
         if(checkWithPrevMessage(mes)) {
-            Pattern p = Pattern.compile("^"+mes);
+            Pattern p = Pattern.compile("^"+mes+"($| \\(x\\d+\\)$)");
             Matcher m = p.matcher((String)savedObj);
             if(m.matches()) {
                 savedObj = mes + " (x" + (++stringsCount) + ")";
             } else {
                 printSavedObjectAndSaveNewOne(mes);
+                stringsCount = 1;
             }
         } else {
             printSavedObjectAndSaveNewOne(mes);
@@ -193,15 +193,41 @@ public class Logger {
         printSavedObjectAndSaveNewOne(mes);
     }
 
-    public static void log (int[] mes) {
-        printSavedObjectAndSaveNewOne(mes);
-    }
+//    public static void log (int[] mes) {
+//        printSavedObjectAndSaveNewOne(mes);
+//    }
 
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes two-dimensional array of ints
+     */
     public static void log (int[][] mes) {
         printSavedObjectAndSaveNewOne(mes);
     }
 
-    public static void log (int[][][] mes) {
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes four-dimensional array of ints
+     */
+    public static void log (int[][][][] mes) {
+        printSavedObjectAndSaveNewOne(mes);
+    }
+
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes vararg of Strings
+     */
+    public static void log (String... mes) {
+        for (String element: mes) {
+            log(element);
+        }
+    }
+
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes varargs of ints and one-dimensional array of them
+     */
+    public static void log (int... mes) {
         printSavedObjectAndSaveNewOne(mes);
     }
 }

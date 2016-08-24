@@ -71,45 +71,48 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         );
         //endregion
     }
-//
-//    @Test
-//    public void shouldLogStringsWithOneMethodCall() throws IOException {
-//        //region when
-//        Logger.log("str1", "string 2", "str 3");
-//        Logger.stopLogging();
-//        //endregion
-//
-//        //region then
-//        assertSysoutContains("str1"+System.lineSeparator()+"string 2"+System.lineSeparator()+"str 3");
-//        //endregion
-//    }
-//
-//    @Test
-//    public void shouldLogIntegersWithOneMethodCall() throws IOException {
-//        //region when
-//        Logger.log(-1, 0, 1, 3);
-//        Logger.stopLogging();
-//        //endregion
-//
-//        //region then
-//        assertSysoutContains("3");
-//        //endregion
-//    }
-//
-//    @Test
-//    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
-//        //region when
-//        Logger.log(1);
-//        Logger.log("str");
-//        Logger.log(Integer.MAX_VALUE - 10);
-//        Logger.log(11);
-//        //endregion
-//
-//        //region then
-//        assertSysoutContains(1);
-//        assertSysoutContains("str");
-//        assertSysoutContains(Integer.MAX_VALUE - 10);
-//        assertSysoutContains(11);
-//        //endregion
-//    }
+
+    @Test
+    public void shouldLogStringsWithOneMethodCall() throws IOException {
+        //region when
+        Logger.log("str1", "string 2", "str 3");
+        Logger.stopLogging();
+        //endregion
+
+        //region then
+        assertSysoutContains("str1");
+        assertSysoutContains("string 2");
+        assertSysoutContains("str 3");
+        //endregion
+    }
+
+    @Test
+    public void shouldLogIntegersWithOneMethodCall() throws IOException {
+        //region when
+        Logger.log(-1, 0, 1, 3);
+        Logger.stopLogging();
+        //endregion
+
+        //region then
+        assertSysoutContains("3");
+        //endregion
+    }
+
+    @Test
+    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
+        //region when
+        Logger.log(1);
+        Logger.log("str");
+        Logger.log(Integer.MAX_VALUE - 10);
+        Logger.log(11);
+        Logger.stopLogging();
+        //endregion
+
+        //region then
+        assertSysoutContains("1");
+        assertSysoutContains("str");
+        assertSysoutContains(""+(Integer.MAX_VALUE - 10));
+        assertSysoutContains("11");
+        //endregion
+    }
 }
