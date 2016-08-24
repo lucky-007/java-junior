@@ -1,5 +1,6 @@
 package com.acme.edu;
 
+import java.lang.reflect.Array;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,9 +11,65 @@ public class Logger {
 
     private static void printSavedObjectAndSaveNewOne(Object mes) {
         if(savedObj != null) {
-            writer(decor(savedObj) + savedObj);
+            writer(decor(savedObj) + formatObjectNote(savedObj));
         }
         savedObj = mes;
+    }
+
+    private static String formatObjectNote(Object mes) {
+        String className = mes.getClass().getName();
+        String objectNote = "";
+        switch (className) {
+            case "java.lang.Boolean":
+            case "java.lang.Byte":
+            case "java.lang.Integer":
+            case "java.lang.Character":
+            case "java.lang.String":
+            case "java.lang.Object":
+                objectNote = mes.toString();
+                break;
+            case "[I":
+                int[] array = ((int[])mes);
+                objectNote = "{";
+                for (int element : array) {
+                    objectNote += element + ", ";
+                }
+                objectNote = objectNote.substring(0, objectNote.length() - 2) + "}";
+                break;
+            case "[[I":
+                int[][] matrix = ((int[][])mes);
+                objectNote = "{" + System.lineSeparator();
+                for (int[] aMatrix : matrix) {
+                    objectNote += "{";
+                    for (int anAMatrix : aMatrix) {
+                        objectNote += anAMatrix + ", ";
+                    }
+                    objectNote = objectNote.substring(0, objectNote.length() - 2) + "}" + System.lineSeparator();
+                }
+                objectNote += "}";
+                break;
+            case "[[[[I":
+                int[][][][] multimatrix = ((int[][][][])mes);
+                objectNote = "{" + System.lineSeparator();
+                for (int[][][] aMultimatrix : multimatrix) {
+                    objectNote += "{" + System.lineSeparator();
+                    for (int[][] anAMultimatrix : aMultimatrix) {
+                        objectNote += "{" + System.lineSeparator();
+                        for (int[] anAnAMultimatrix : anAMultimatrix) {
+                            objectNote += "{" + System.lineSeparator();
+                            for (int anAnAnAMultimatrix : anAnAMultimatrix) {
+                                objectNote += anAnAnAMultimatrix + ", ";
+                            }
+                            objectNote = objectNote.substring(0, objectNote.length() - 2) + System.lineSeparator() + "}" + System.lineSeparator();
+                        }
+                        objectNote += "}" + System.lineSeparator();
+                    }
+                    objectNote += "}" + System.lineSeparator();
+                }
+                objectNote += "}";
+                break;
+        }
+        return objectNote;
     }
 
     private static void writer (String message) {
@@ -27,6 +84,15 @@ public class Logger {
             case "java.lang.Byte":
             case "java.lang.Integer":
                 dec = "primitive: ";
+                break;
+            case "[I":
+                dec = "primitives array: ";
+                break;
+            case "[[I":
+                dec = "primitives matrix: ";
+                break;
+            case "[[[[I":
+                dec = "primitives multimatrix: ";
                 break;
             case "java.lang.Character":
                 dec = "char: ";
@@ -124,6 +190,18 @@ public class Logger {
      * @param mes Object
      */
     public static void log (Object mes) {
+        printSavedObjectAndSaveNewOne(mes);
+    }
+
+    public static void log (int[] mes) {
+        printSavedObjectAndSaveNewOne(mes);
+    }
+
+    public static void log (int[][] mes) {
+        printSavedObjectAndSaveNewOne(mes);
+    }
+
+    public static void log (int[][][] mes) {
         printSavedObjectAndSaveNewOne(mes);
     }
 }
