@@ -1,8 +1,5 @@
 package com.acme.edu;
 
-/**
- * Created by daniil on 25.08.16.
- */
 public class ConsoleDecorator implements Decorator {
     @Override
     public void decorate(Message message) {
