@@ -9,15 +9,18 @@ public class ConsoleDecorator implements Decorator {
      */
     @Override
     public void decorate(Message message) {
-        message.setOutput(getPrefix(message) + decorateContent(message) + getPostfix(message));
+        message.setOutput(getPrefix(message) +
+                chooseDecorStrategy(message).decorate(message) +
+                getPostfix(message)
+        );
     }
 
     private String getPostfix(Message message) {
         return "";
     }
 
-    private String decorateContent(Message message) {
-        String content = "";
+    private DecorContentStrategy chooseDecorStrategy(Message message) {
+        DecorContentStrategy d = null;
         switch (message.getType()) {
             case "java.lang.Boolean":
             case "java.lang.Byte":
@@ -25,50 +28,19 @@ public class ConsoleDecorator implements Decorator {
             case "java.lang.Character":
             case "java.lang.String":
             case "java.lang.Object":
-                content = message.getValue().toString();
+                d = new ToStringDecorContentStrategy();
                 break;
             case "[I":
-                int[] array = ((int[])message.getValue());
-                content = "{";
-                for (int element : array) {
-                    content += element + ", ";
-                }
-                content = content.substring(0, content.length() - 2) + "}";
+                d = new Array1DecorContentStrategy();
                 break;
             case "[[I":
-                int[][] matrix = ((int[][])message.getValue());
-                content = "{" + System.lineSeparator();
-                for (int[] row : matrix) {
-                    content += "{";
-                    for (int element : row) {
-                        content += element + ", ";
-                    }
-                    content = content.substring(0, content.length() - 2) + "}" + System.lineSeparator();
-                }
-                content += "}";
+                d = new Array2DecorContentStrategy();
                 break;
             case "[[[[I":
-                int[][][][] multimatrix4 = ((int[][][][])message.getValue());
-                content = "{" + System.lineSeparator();
-                for (int[][][] multimatrix3 : multimatrix4) {
-                    content += "{" + System.lineSeparator();
-                    for (int[][] multimatrix2 : multimatrix3) {
-                        content += "{" + System.lineSeparator();
-                        for (int[] multimatrix1 : multimatrix2) {
-                            content += "{" + System.lineSeparator();
-                            for (int element : multimatrix1) {
-                                content += element + ", ";
-                            }
-                            content = content.substring(0, content.length() - 2) + System.lineSeparator() + "}" + System.lineSeparator();
-                        }
-                        content += "}" + System.lineSeparator();
-                    }
-                    content += "}" + System.lineSeparator();
-                }
-                content += "}";
+                d = new Array4DecorContentStrategy();
                 break;
         }
-        return content;
+        return d;
     }
 
     private String getPrefix(Message message) {
