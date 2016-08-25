@@ -80,14 +80,16 @@ public class Logger {
     private void processSequenceData(Message message) {
         switch(message.getType()) {
             case "java.lang.Byte":
-                if((int) Byte.MAX_VALUE - (int) (byte) savedMessage.getValue() < (int) (byte) message.getValue()) {
+                if(Byte.MAX_VALUE - Math.abs((byte) savedMessage.getValue()) < (byte) message.getValue()
+                        || Byte.MIN_VALUE + Math.abs((byte) savedMessage.getValue()) > (byte) message.getValue()) {
                     decoratePrintSavedMessageAndSaveNewOne(message);
                 } else {
                     savedMessage.setValue ( (byte)((byte) savedMessage.getValue() + (byte)message.getValue()));
                 }
                 break;
             case "java.lang.Integer":
-                if((long) Integer.MAX_VALUE - (long) (int) savedMessage.getValue() < (long) (int) message.getValue()) {
+                if(Integer.MAX_VALUE - Math.abs((int) savedMessage.getValue()) < (int) message.getValue()
+                        || Integer.MIN_VALUE + Math.abs((int) savedMessage.getValue()) > (int) message.getValue()) {
                     decoratePrintSavedMessageAndSaveNewOne(message);
                 } else {
                     savedMessage.setValue ((int) savedMessage.getValue() + (int)message.getValue());
