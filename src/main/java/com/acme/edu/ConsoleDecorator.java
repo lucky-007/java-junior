@@ -1,6 +1,12 @@
 package com.acme.edu;
 
 public class ConsoleDecorator implements Decorator {
+    /**
+     * Decorate output string with specification of customer.
+     * Uses {@link Message}.setOutput method to set output string.
+     * @param message
+     * @see Message
+     */
     @Override
     public void decorate(Message message) {
         message.setOutput(getPrefix(message) + decorateContent(message) + getPostfix(message));
