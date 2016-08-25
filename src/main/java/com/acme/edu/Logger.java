@@ -5,8 +5,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Logger {
+
+    private Decorator decorator;
+    private Writer writer;
     private static Object savedObj = null;
     private static int stringsCount = 1;
+
+    public Logger(Decorator decorator, Writer writer) {
+        this.decorator = decorator;
+        this.writer = writer;
+    }
 
     private static void printSavedObjectAndSaveNewOne(Object mes) {
         if(savedObj != null) {
@@ -189,13 +197,12 @@ public class Logger {
      * Overloaded method for logging for different types of inputs parameters.
      * @param mes Object
      */
-    public static void log (Object mes) {
+    public void log (Object mes) {
+        Message message = new Message(mes);
+        decorator.decorate(message);
+        writer.write(message);
         printSavedObjectAndSaveNewOne(mes);
     }
-
-//    public static void log (int[] mes) {
-//        printSavedObjectAndSaveNewOne(mes);
-//    }
 
     /**
      * Overloaded method for logging for different types of inputs parameters.

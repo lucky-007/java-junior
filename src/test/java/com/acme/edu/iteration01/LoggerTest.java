@@ -1,5 +1,7 @@
 package com.acme.edu.iteration01;
 
+import com.acme.edu.ConsoleDecorator;
+import com.acme.edu.ConsoleWriter;
 import com.acme.edu.Logger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
@@ -9,6 +11,7 @@ import org.junit.Test;
 import java.io.*;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
+    private Logger logger = new Logger(new ConsoleDecorator(), new ConsoleWriter());
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
