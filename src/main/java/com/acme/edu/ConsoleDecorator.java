@@ -20,7 +20,7 @@ public class ConsoleDecorator implements Decorator {
     }
 
     private DecorContentStrategy chooseDecorStrategy(Message message) {
-        DecorContentStrategy d = null;
+        DecorContentStrategy decorContentStrategy = null;
         switch (message.getType()) {
             case "java.lang.Boolean":
             case "java.lang.Byte":
@@ -28,19 +28,19 @@ public class ConsoleDecorator implements Decorator {
             case "java.lang.Character":
             case "java.lang.String":
             case "java.lang.Object":
-                d = new ToStringDecorContentStrategy();
+                decorContentStrategy = new ToStringDecorContentStrategy();
                 break;
             case "[I":
-                d = new Array1DecorContentStrategy();
+                decorContentStrategy = new ArrayOneDimensionalDecorContentStrategy();
                 break;
             case "[[I":
-                d = new Array2DecorContentStrategy();
+                decorContentStrategy = new ArrayTwoDimensionalDecorContentStrategy();
                 break;
             case "[[[[I":
-                d = new Array4DecorContentStrategy();
+                decorContentStrategy = new ArrayFourDimensionalDecorContentStrategy();
                 break;
         }
-        return d;
+        return decorContentStrategy;
     }
 
     private String getPrefix(Message message) {

@@ -69,9 +69,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region then
         assertSysoutEquals(
             "primitives multimatrix: {"+System.lineSeparator() +
-                "{"+System.lineSeparator() + "{"+System.lineSeparator() + "{"+System.lineSeparator() +
-                    "0"+System.lineSeparator() +
-                "}"+System.lineSeparator() + "}"+System.lineSeparator() + "}"+System.lineSeparator() +
+                "{"+System.lineSeparator() + "{"+System.lineSeparator() + "{" +
+                    "0"
+                + "}"+System.lineSeparator() + "}"+System.lineSeparator() + "}"+System.lineSeparator() +
             "}"+System.lineSeparator()
         );
         //endregion

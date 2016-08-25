@@ -6,17 +6,76 @@ import java.util.regex.Pattern;
 
 public class Logger {
 
-    private final Decorator decorator;
-    private final Writer writer;
-    private Message savedMessage;
-    private int stringsCount;
-
+    /**
+     * Logger constructor.
+     * @param decorator Decorator
+     * @param writer Writer
+     */
     public Logger(Decorator decorator, Writer writer) {
         this.decorator = decorator;
         this.writer = writer;
         savedMessage = null;
         stringsCount = 1;
     }
+
+    /**
+     * Terminates the process of logging
+     * and adds the result of last logging request.
+     */
+    public void stopLogging() {
+        decoratePrintSavedMessageAndSaveNewOne(null);
+    }
+
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes Object...
+     */
+    public void log (Object... mes) {
+        for (Object element: mes) {
+            log(element);
+        }
+    }
+
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes Object
+     */
+    public void log (Object mes) {
+        Message message = new Message(mes);
+        processMessage(message);
+    }
+
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes int[]
+     */
+    public void logIntArray(int[] mes) {
+        Message message = new Message(mes);
+        processMessage(message);
+    }
+
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes int[][]
+     */
+    public void logIntArray(int[][] mes) {
+        Message message = new Message(mes);
+        processMessage(message);
+    }
+
+    /**
+     * Overloaded method for logging for different types of inputs parameters.
+     * @param mes int[][][][]
+     */
+    public void logIntArray(int[][][][] mes) {
+        Message message = new Message(mes);
+        processMessage(message);
+    }
+
+    private final Decorator decorator;
+    private final Writer writer;
+    private Message savedMessage;
+    private int stringsCount;
 
     private void processSequenceData(Message message) {
         switch(message.getType()) {
@@ -62,65 +121,11 @@ public class Logger {
         return savedMessage != null && Objects.equals(newMessage.getType(), savedMessage.getType());
     }
 
-    /**
-     * Terminates the process of logging
-     * and adds the result of last logging request.
-     */
-    public void stopLogging() {
-        decoratePrintSavedMessageAndSaveNewOne(null);
-    }
-
-    /**
-     * Overloaded method for logging for different types of inputs parameters.
-     * @param mes Object...
-     */
-    public void log (Object... mes) {
-        for (Object element: mes) {
-            log(element);
-        }
-    }
-
     private void processMessage(Message message) {
         if (checkWithPrevMessage(message)) {
             processSequenceData(message);
         } else {
             decoratePrintSavedMessageAndSaveNewOne(message);
         }
-    }
-
-    /**
-     * Overloaded method for logging for different types of inputs parameters.
-     * @param mes Object
-     */
-    public void log (Object mes) {
-        Message message = new Message(mes);
-        processMessage(message);
-    }
-
-    /**
-     * Overloaded method for logging for different types of inputs parameters.
-     * @param mes int[]
-     */
-    public void logIntArray(int[] mes) {
-        Message message = new Message(mes);
-        processMessage(message);
-    }
-
-    /**
-     * Overloaded method for logging for different types of inputs parameters.
-     * @param mes int[][]
-     */
-    public void logIntArray(int[][] mes) {
-        Message message = new Message(mes);
-        processMessage(message);
-    }
-
-    /**
-     * Overloaded method for logging for different types of inputs parameters.
-     * @param mes int[][][][]
-     */
-    public void logIntArray(int[][][][] mes) {
-        Message message = new Message(mes);
-        processMessage(message);
     }
 }

@@ -5,9 +5,9 @@ class Message {
     private Object value;
     private String output;
 
-    Message(Object mes) {
-        type = mes.getClass().getName();
-        value = mes;
+    Message(Object messsage) {
+        type = messsage.getClass().getName();
+        value = messsage;
     }
 
     String getOutput() {
