@@ -7,14 +7,14 @@ import org.junit.Test;
 
 import java.io.*;
 
-public class ConsoleDecoratorTest implements SysoutCaptureAndAssertionAbility {
+public class ListOfWritersTest implements SysoutCaptureAndAssertionAbility {
     private Logger logger;
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        logger = new Logger(new ConsoleDecorator(), new NotConsoleWriter());
+        logger = new Logger(new ConsoleDecorator(), new ConsoleWriter(), new NotConsoleWriter());
     }
 
     @After
@@ -34,6 +34,7 @@ public class ConsoleDecoratorTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("primitive: ");
         assertSysoutContains("1");
         assertSysoutContains("[NOT CONSOLE]: ");
+        assertSysoutContains("1");
         //endregion
     }
 }

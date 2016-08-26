@@ -31,13 +31,13 @@ public class ConsoleDecorator implements Decorator {
                 decorContentStrategy = new ToStringDecorContentStrategy();
                 break;
             case "[I":
-                decorContentStrategy = new ArrayOneDimensionalDecorContentStrategy();
+                decorContentStrategy = new OneDimensionalArrayDecorContentStrategy();
                 break;
             case "[[I":
-                decorContentStrategy = new ArrayTwoDimensionalDecorContentStrategy();
+                decorContentStrategy = new TwoDimensionalArrayDecorContentStrategy();
                 break;
             case "[[[[I":
-                decorContentStrategy = new ArrayFourDimensionalDecorContentStrategy();
+                decorContentStrategy = new FourDimensionalArrayDecorContentStrategy();
                 break;
         }
         return decorContentStrategy;

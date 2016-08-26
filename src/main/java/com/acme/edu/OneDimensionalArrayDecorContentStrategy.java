@@ -1,11 +1,10 @@
 package com.acme.edu;
 
-class ArrayOneDimensionalDecorContentStrategy implements DecorContentStrategy{
+class OneDimensionalArrayDecorContentStrategy implements DecorContentStrategy{
     @Override
     public String decorate(Message message) {
-        String content;
+        String content = "{";
         int[] array1D = ((int[])message.getValue());
-        content = "{";
         for (int element : array1D) {
             content += element + ", ";
         }

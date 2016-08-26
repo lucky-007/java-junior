@@ -9,11 +9,14 @@ public class Logger {
     /**
      * Logger constructor.
      * @param decorator Decorator
-     * @param writer Writer
+     * @param listOfWriters Writer
      */
-    public Logger(Decorator decorator, Writer writer) {
+    public Logger(Decorator decorator, Writer... listOfWriters) {
+
+        this.listOfWriters = new Writer[listOfWriters.length];
+
+        for (int i = 0; i < listOfWriters.length; i++) this.listOfWriters[i] = listOfWriters[i];
         this.decorator = decorator;
-        this.writer = writer;
         savedMessage = null;
         stringsCount = 1;
     }
@@ -73,10 +76,12 @@ public class Logger {
     }
 
     private final Decorator decorator;
-    private final Writer writer;
+    private final Writer[] listOfWriters;
     private Message savedMessage;
     private int stringsCount;
 
+
+    //TODO: refactore this code to OOP style.
     private void processSequenceData(Message message) {
         switch(message.getType()) {
             case "java.lang.Byte":
@@ -114,7 +119,9 @@ public class Logger {
     private void decoratePrintSavedMessageAndSaveNewOne(Message message) {
         if (savedMessage != null) {
             decorator.decorate(savedMessage);
-            writer.write(savedMessage);
+            for (Writer writer: listOfWriters) {
+                writer.write(savedMessage);
+            }
         }
         savedMessage = message;
     }

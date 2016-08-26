@@ -24,3 +24,4 @@ public interface SysoutCaptureAndAssertionAbility {
         OUT.reset();
     }
 }
+
