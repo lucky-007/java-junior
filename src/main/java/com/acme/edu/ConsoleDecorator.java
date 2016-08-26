@@ -8,11 +8,10 @@ public class ConsoleDecorator implements Decorator {
      * @see Message
      */
     @Override
-    public void decorate(Message message) {
-        message.setOutput(getPrefix(message) +
-                chooseDecorStrategy(message).decorate(message) +
-                getPostfix(message)
-        );
+    public String decorate(Message message) {
+        return  getPrefix(message) +
+                chooseDecorStrategy(message).decorateContent(message) +
+                getPostfix(message);
     }
 
     private String getPostfix(Message message) {

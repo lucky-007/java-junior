@@ -7,6 +7,6 @@ public class ConsoleWriter implements Writer {
      */
     @Override
     public void write(Message message) {
-        System.out.println(message.getOutput());
+        System.out.println(message.getResult());
     }
 }

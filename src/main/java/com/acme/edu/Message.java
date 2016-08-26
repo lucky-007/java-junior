@@ -1,32 +1,32 @@
 package com.acme.edu;
 
-class Message {
+public class Message {
     private String type;
     private Object value;
-    private String output;
+    private String result;
 
-    Message(Object messsage) {
+    public Message(Object messsage) {
         type = messsage.getClass().getName();
         value = messsage;
     }
 
-    String getOutput() {
-        return output;
+    public String getResult() {
+        return result;
     }
 
-    void setOutput(String output) {
-        this.output = output;
+    public void setResult(String output) {
+        this.result = output;
     }
 
-    String getType() {
+    public String getType() {
         return type;
     }
 
-    Object getValue() {
+    public Object getValue() {
         return value;
     }
 
-    void setValue(Object value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 }

@@ -2,7 +2,7 @@ package com.acme.edu;
 
 class TwoDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
     @Override
-    public String decorate(Message message) {
+    public String decorateContent(Message message) {
         return "{" + System.lineSeparator() + OneDimensionalArrayProccess((int[][])message.getValue()) + "}";
     }
 
@@ -10,7 +10,7 @@ class TwoDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
         OneDimensionalArrayDecorContentStrategy array1DecorContentStrategy = new OneDimensionalArrayDecorContentStrategy();
         String result = "";
         for (int[] array1D : array2D) {
-            result += array1DecorContentStrategy.decorate(new Message(array1D));
+            result += array1DecorContentStrategy.decorateContent(new Message(array1D));
             result += System.lineSeparator();
         }
         return result;

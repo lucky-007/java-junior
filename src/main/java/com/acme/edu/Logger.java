@@ -118,7 +118,7 @@ public class Logger {
 
     private void decoratePrintSavedMessageAndSaveNewOne(Message message) {
         if (savedMessage != null) {
-            decorator.decorate(savedMessage);
+            savedMessage.setResult(decorator.decorate(savedMessage));
             for (Writer writer: listOfWriters) {
                 writer.write(savedMessage);
             }
@@ -137,4 +137,6 @@ public class Logger {
             decoratePrintSavedMessageAndSaveNewOne(message);
         }
     }
+
 }
+

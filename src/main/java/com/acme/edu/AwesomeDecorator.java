@@ -2,7 +2,7 @@ package com.acme.edu;
 
 public class AwesomeDecorator implements Decorator {
     @Override
-    public void decorate(Message message) {
-        message.setOutput("FIIIINEEEE:   " +message.getValue().toString() + "   Looooooooooo");
+    public String decorate(Message message) {
+        return "FIIIINEEEE:   " +message.getValue().toString() + "   Looooooooooo";
     }
 }

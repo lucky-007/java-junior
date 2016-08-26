@@ -2,7 +2,7 @@ package com.acme.edu;
 
 class OneDimensionalArrayDecorContentStrategy implements DecorContentStrategy{
     @Override
-    public String decorate(Message message) {
+    public String decorateContent(Message message) {
         String content = "{";
         int[] array1D = ((int[])message.getValue());
         for (int element : array1D) {

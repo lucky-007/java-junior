@@ -1,20 +1,22 @@
-package com.acme.edu.iteration04;
+package com.acme.edu.systemtest04;
 
 import com.acme.edu.*;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
 
-public class AwesomeDecoratorTest implements SysoutCaptureAndAssertionAbility {
+@Ignore
+public class ListOfWritersTest implements SysoutCaptureAndAssertionAbility {
     private Logger logger;
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        logger = new Logger(new AwesomeDecorator(), new ConsoleWriter());
+        logger = new Logger(new ConsoleDecorator(), new ConsoleWriter(), new NotConsoleWriter());
     }
 
     @After
@@ -31,9 +33,10 @@ public class AwesomeDecoratorTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("FIIIINEEEE:   ");
+        assertSysoutContains("primitive: ");
         assertSysoutContains("1");
-        assertSysoutContains("   Looooooooooo");
+        assertSysoutContains("[NOT CONSOLE]: ");
+        assertSysoutContains("1");
         //endregion
     }
 }
