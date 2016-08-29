@@ -4,6 +4,11 @@ import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
 public class ThreeDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
+    /**
+     * 3-dim arr decor
+     * @param message input message
+     * @return decor string
+     */
     @Override
     public String decorateContent(Message message) {
         return "{" + System.lineSeparator() + processTwoDimensionalArray((int[][][])message.getValue()) + "}";

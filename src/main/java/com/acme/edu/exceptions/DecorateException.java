@@ -1,5 +1,8 @@
 package com.acme.edu.exceptions;
 
+/**
+ * Exception if anything failed whilst decoration
+ */
 public class DecorateException extends RuntimeException {
     /**
      * Exception constructor with string message and caused exception, calling super method

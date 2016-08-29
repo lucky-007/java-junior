@@ -3,7 +3,15 @@ package com.acme.edu.strategies;
 import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
+/**
+ * 4-dim array strategy
+ */
 public class FourDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
+    /**
+     * 4-dim arr decoration
+     * @param message input message
+     * @return decorated string
+     */
     @Override
     public String decorateContent(Message message) {
         return "{" + System.lineSeparator() + processThreeDimensionalArray((int[][][][])message.getValue()) + "}";

@@ -123,11 +123,15 @@ public class Logger {
     private void decorateAndPrintMessage(Message message) {
         message.setResult(decorator.decorate(message));
         for (Writer writer: listOfWriters) {
-            try {
-                writer.write(message);
-            } catch (LoggerAppendException e) {
-                e.printStackTrace();
-            }
+            tryWriteToSingleWriter(message, writer);
+        }
+    }
+
+    private void tryWriteToSingleWriter(Message message, Writer writer) {
+        try {
+            writer.write(message);
+        } catch (LoggerAppendException e) {
+            e.printStackTrace();
         }
     }
 }

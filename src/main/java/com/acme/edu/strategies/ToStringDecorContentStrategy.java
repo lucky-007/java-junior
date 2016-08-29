@@ -4,6 +4,11 @@ import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
 public class ToStringDecorContentStrategy implements DecorContentStrategy {
+    /**
+     * primitive values decoration
+     * @param message input message
+     * @return decor string
+     */
     @Override
     public String decorateContent(Message message) {
         return message.getValue().toString();

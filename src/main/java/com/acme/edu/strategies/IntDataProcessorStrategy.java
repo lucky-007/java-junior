@@ -4,9 +4,14 @@ import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.CountingDataProcessorStrategy;
 
 /**
- * Created by daniil on 29.08.16.
+ * Class for INTEGER data processing
  */
 public class IntDataProcessorStrategy implements CountingDataProcessorStrategy {
+    /**
+     * Processing previous and new message where values are INTEGERS
+     * @param message input message
+     * @param savedMessage processed message
+     */
     @Override
     public void processData(Message message, Message savedMessage) {
         if(Integer.MAX_VALUE - Math.abs((int) savedMessage.getValue()) < (int) message.getValue()

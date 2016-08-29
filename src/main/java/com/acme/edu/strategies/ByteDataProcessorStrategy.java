@@ -8,9 +8,9 @@ import com.acme.edu.interfaces.CountingDataProcessorStrategy;
  */
 public class ByteDataProcessorStrategy implements CountingDataProcessorStrategy {
     /**
-     *
-     * @param message
-     * @param savedMessage
+     * Processing previous and new message where values are BYTES
+     * @param message new
+     * @param savedMessage previous
      */
     @Override
     public void processData(Message message, Message savedMessage) {
