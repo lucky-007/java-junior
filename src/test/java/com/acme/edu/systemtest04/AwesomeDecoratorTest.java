@@ -25,7 +25,7 @@ public class AwesomeDecoratorTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test
-    public void loggingToDifferentSource() throws IOException {
+    public void differentDecorator() throws IOException {
         //region when
         logger.log(1);
         logger.stopLogging();
