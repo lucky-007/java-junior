@@ -28,6 +28,34 @@ public class Message {
     }
 
     /**
+     * Equals method using type and value fields
+     * @param o input object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Message message = (Message) o;
+
+        if (!type.equals(message.type)) return false;
+        return value.equals(message.value);
+
+    }
+
+    /**
+     * HashCode method using type and value fields
+     * @return hash
+     */
+    @Override
+    public int hashCode() {
+        int result = type.hashCode();
+        result = 31 * result + value.hashCode();
+        return result;
+    }
+
+    /**
      * setter of result string
      * @param output string
      */

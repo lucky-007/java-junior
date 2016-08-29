@@ -1,4 +1,4 @@
-package com.acme.edu.strategies;
+package com.acme.edu.strategies.decoration;
 
 import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;

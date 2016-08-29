@@ -1,12 +1,12 @@
 package com.acme.edu.strategies;
 
+import com.acme.edu.interfaces.DataProcessorStrategy;
 import com.acme.edu.message.Message;
-import com.acme.edu.interfaces.CountingDataProcessorStrategy;
 
 /**
  * Class for INTEGER data processing
  */
-public class IntDataProcessorStrategy implements CountingDataProcessorStrategy {
+public class IntDataProcessorStrategy implements DataProcessorStrategy {
     /**
      * Processing previous and new message where values are INTEGERS
      * @param message input message

@@ -24,7 +24,7 @@ public class SequenceDataProcessor implements DataProcessor {
      */
     public SequenceDataProcessor() {
         this.savedMessage = null;
-        this.count = 0;
+        this.count = 1;
     }
 
     /**
@@ -46,6 +46,7 @@ public class SequenceDataProcessor implements DataProcessor {
                 processSequenceData(message);
             } else {
                 savedMessage.setFlagToWrite(true);
+                count = 1;
             }
 
             outputMessage = savedMessage;

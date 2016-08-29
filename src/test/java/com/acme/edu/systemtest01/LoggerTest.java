@@ -30,12 +30,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test(expected = LoggingNullPointerException.class)
     public void shouldThrowExceptionWhenLoggingNullPointer() {
         logger.log(null);
+        logger.stopLogging();
     }
 
-    @Ignore
     @Test(expected = DecorateException.class)
     public void shouldThrowDecorateException() {
         logger.log(new float[] {.2f});
+        logger.stopLogging();
     }
 
     @Test

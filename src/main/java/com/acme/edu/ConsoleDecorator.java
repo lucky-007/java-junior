@@ -5,7 +5,7 @@ import com.acme.edu.exceptions.DecorateException;
 import com.acme.edu.interfaces.DecorContentStrategy;
 import com.acme.edu.interfaces.Decorator;
 import com.acme.edu.message.Message;
-import com.acme.edu.strategies.*;
+import com.acme.edu.strategies.decoration.*;
 
 /**
  * Decorator for constructing the string with business logic

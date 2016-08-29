@@ -1,12 +1,12 @@
 package com.acme.edu.strategies;
 
+import com.acme.edu.interfaces.DataProcessorStrategy;
 import com.acme.edu.message.Message;
-import com.acme.edu.interfaces.CountingDataProcessorStrategy;
 
 /**
  * Class for BYTE data processing
  */
-public class ByteDataProcessorStrategy implements CountingDataProcessorStrategy {
+public class ByteDataProcessorStrategy implements DataProcessorStrategy {
     /**
      * Processing previous and new message where values are BYTES
      * @param message new
