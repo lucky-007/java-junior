@@ -2,9 +2,11 @@ package com.acme.edu.systemtest01;
 
 import com.acme.edu.*;
 import com.acme.edu.SimpleDataProcessor;
+import com.acme.edu.exceptions.DecorateException;
 import com.acme.edu.exceptions.LoggingNullPointerException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -28,6 +30,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test(expected = LoggingNullPointerException.class)
     public void shouldThrowExceptionWhenLoggingNullPointer() {
         logger.log(null);
+    }
+
+    @Ignore
+    @Test(expected = DecorateException.class)
+    public void shouldThrowDecorateException() {
+        logger.log(new float[] {.2f});
     }
 
     @Test

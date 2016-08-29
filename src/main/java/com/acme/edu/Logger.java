@@ -34,7 +34,7 @@ public class Logger {
      * and adds the result of last logging request.
      */
     public void stopLogging() {
-        decorateAndPrintMessage(dataProcessor.processData(null));
+        tryDecorateAndPrintMessage(dataProcessor.processData(null));
     }
 
     /**
@@ -101,25 +101,30 @@ public class Logger {
     }
 
 
-    private void decorateAndPrintMessage(Message message) {
+    private void tryDecorateAndPrintMessage(Message message) {
         try {
-            message.setResult(decorator.decorate(message));
-            for (Writer writer: listOfWriters) {
-                try {
-                    writer.write(message);
-                } catch (LoggerAppendException e) {
-                    e.printStackTrace();
-                }
-            }
+            decorateAndPrintMessage(message);
         } catch (DecorateException e) {
             e.printStackTrace();
+            throw e;
+        }
+    }
+
+    private void decorateAndPrintMessage(Message message) {
+        message.setResult(decorator.decorate(message));
+        for (Writer writer: listOfWriters) {
+            try {
+                writer.write(message);
+            } catch (LoggerAppendException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private void processMessage(Message message) {
         Message savedMessage = dataProcessor.processData(message);
         if (savedMessage.getFlagToWrite()) {
-            decorateAndPrintMessage(savedMessage);
+            tryDecorateAndPrintMessage(savedMessage);
             dataProcessor.setMessage(message);
         }
     }
