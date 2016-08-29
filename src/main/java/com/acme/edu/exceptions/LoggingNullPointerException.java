@@ -1,18 +1,11 @@
 package com.acme.edu.exceptions;
 
 public class LoggingNullPointerException extends RuntimeException {
-    public LoggingNullPointerException() {
-        super();
-    }
-
-    public LoggingNullPointerException(String message) {
-        super (message);
-    }
-
-    public LoggingNullPointerException(Throwable cause) {
-        super (cause);
-    }
-
+    /**
+     * Exception constructor with string message and caused exception, calling super method
+     * @param message exception message
+     * @param cause caused exception
+     */
     public LoggingNullPointerException(String message, Throwable cause) {
         super (message, cause);
     }
