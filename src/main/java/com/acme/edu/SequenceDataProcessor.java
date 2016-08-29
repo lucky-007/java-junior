@@ -15,39 +15,49 @@ public class SequenceDataProcessor implements DataProcessor {
     private Message savedMessage;
     private int count;
 
+    /**
+     * Constructor of processor of sequence data.
+     * Sets previous message to NULL and count to ZERO.
+     */
     public SequenceDataProcessor() {
         this.savedMessage = null;
         this.count = 0;
     }
 
+    /**
+     * Processing sequential messages. If they are different types, this method just set the FlagToWrite.
+     * If they are same type, method will compare theirs values and will do business logic with them,
+     * setting or un-setting the FlagToWrite.
+     *
+     * User of this method have to check FlagToWrite by using getFlagToWrite method. And if it is true, user need to
+     * send to {@link com.acme.edu.interfaces.Writer}.
+     *
+     * @param message input message.
+     * @return Processed Message object.
+     */
     @Override
     public Message processData(Message message) {
-        if (savedMessage != null){
-            if (message != null) {
-                if (Objects.equals(message.getType(), savedMessage.getType())){
-                    processSequenceData(message);
-                }
-                else {
-                    savedMessage.setFlagToWrite(true);
-                }
-            }
-            else {
+        Message outputMessage;
+        if (savedMessage != null) {
+            if ((message != null) && Objects.equals(message.getType(), savedMessage.getType())){
+                processSequenceData(message);
+            } else {
                 savedMessage.setFlagToWrite(true);
             }
-        }
-        else {
-            savedMessage = message;
-        }
-        return savedMessage;
-    }
 
-    @Override
-    public void setMessage(Message message) {
-        this.savedMessage = message;
+            outputMessage = savedMessage;
+            if (savedMessage.getFlagToWrite()) {
+                savedMessage = message;
+            }
+        } else {
+            savedMessage = message;
+            return savedMessage;
+        }
+        return outputMessage;
     }
 
     private void processSequenceData(Message message) {
-        DataProcessorStrategy dataProcessorStrategy = null;
+        DataProcessorStrategy dataProcessorStrategy;
         switch(message.getType()) {
             case "java.lang.Byte":
                 dataProcessorStrategy = new ByteDataProcessorStrategy();

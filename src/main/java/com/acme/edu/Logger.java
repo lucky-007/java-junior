@@ -57,8 +57,7 @@ public class Logger {
      */
     public void log (Object mes) {
         try {
-            Message message = new Message(mes);
-            processMessage(message);
+            createAndProcessMessage(mes);
         } catch (NullPointerException e) {
             throw new LoggingNullPointerException("Null pointer in the input of logger!", e);
         }
@@ -69,8 +68,7 @@ public class Logger {
      * @param mes int[]
      */
     public void logIntArray(int[] mes) {
-        Message message = new Message(mes);
-        processMessage(message);
+        createAndProcessMessage(mes);
     }
 
     /**
@@ -78,8 +76,7 @@ public class Logger {
      * @param mes int[][]
      */
     public void logIntArray(int[][] mes) {
-        Message message = new Message(mes);
-        processMessage(message);
+        createAndProcessMessage(mes);
     }
 
     /**
@@ -87,8 +84,7 @@ public class Logger {
      * @param mes int[][][]
      */
     public void logIntArray(int[][][] mes) {
-        Message message = new Message(mes);
-        processMessage(message);
+        createAndProcessMessage(mes);
     }
 
     /**
@@ -96,10 +92,21 @@ public class Logger {
      * @param mes int[][][][]
      */
     public void logIntArray(int[][][][] mes) {
+        createAndProcessMessage(mes);
+    }
+
+    private void createAndProcessMessage(Object mes) {
         Message message = new Message(mes);
         processMessage(message);
     }
 
+
+    private void processMessage(Message message) {
+        Message savedMessage = dataProcessor.processData(message);
+        if (savedMessage.getFlagToWrite()) {
+            tryDecorateAndPrintMessage(savedMessage);
+        }
+    }
 
     private void tryDecorateAndPrintMessage(Message message) {
         try {
@@ -118,14 +125,6 @@ public class Logger {
             } catch (LoggerAppendException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void processMessage(Message message) {
-        Message savedMessage = dataProcessor.processData(message);
-        if (savedMessage.getFlagToWrite()) {
-            tryDecorateAndPrintMessage(savedMessage);
-            dataProcessor.setMessage(message);
         }
     }
 }

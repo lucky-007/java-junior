@@ -25,7 +25,7 @@ public class SimpleDataProcessorTest implements SysoutCaptureAndAssertionAbility
     //endregion
 
     @Test
-    public void loggingToDifferentSource() throws IOException {
+    public void shouldNotSumInts() throws IOException {
         //region when
         logger.log(1);
         logger.log(0);
