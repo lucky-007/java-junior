@@ -20,14 +20,10 @@ public class ConsoleDecorator implements Decorator {
     @Override
     public String decorate(Message message) throws DecorateException {
         try {
-            return  getContent(message) + getPostfix(message);
+            return  getContent(message);
         } catch (ContentDecorateException e) {
             throw new DecorateException("Can\'t decorate message", e);
         }
-    }
-
-    private String getPostfix(Message message) {
-        return "";
     }
 
     private String getContent(Message message) throws ContentDecorateException {

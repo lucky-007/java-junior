@@ -58,18 +58,22 @@ public class SequenceDataProcessor implements DataProcessor {
                 dataProcessorStrategy.processData(message, savedMessage);
                 break;
             case "java.lang.String":
-                Pattern p = Pattern.compile("^"+ message.getValue() +"($| \\(x\\d+\\)$)");
-                Matcher m = p.matcher((String) savedMessage.getValue());
-                if(m.matches()) {
-                    savedMessage.setValue(message.getValue() + " (x" + (++count) + ")");
-                } else {
-                    savedMessage.setFlagToWrite(true);
-                    count = 1;
-                }
+                processStringData(message);
                 break;
             default:
                 savedMessage.setFlagToWrite(true);
                 break;
+        }
+    }
+
+    private void processStringData(Message message) {
+        Pattern p = Pattern.compile("^"+ message.getValue() +"($| \\(x\\d+\\)$)");
+        Matcher m = p.matcher((String) savedMessage.getValue());
+        if(m.matches()) {
+            savedMessage.setValue(message.getValue() + " (x" + (++count) + ")");
+        } else {
+            savedMessage.setFlagToWrite(true);
+            count = 1;
         }
     }
 }
