@@ -1,7 +1,7 @@
 package com.acme.edu.unittest01;
 
 import com.acme.edu.ConsoleDecorator;
-import com.acme.edu.interfaces.DecorContentStrategy;
+import com.acme.edu.exceptions.DecorateException;
 import com.acme.edu.message.Message;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import static org.mockito.Mockito.when;
 public class ConsoleDecoratorClassTest {
     private ConsoleDecorator consoleDecorator;
     private Message messageMock;
-    private DecorContentStrategy decorContentStrategyMock;
     private String result;
 
     @Before
@@ -21,7 +20,6 @@ public class ConsoleDecoratorClassTest {
 
         consoleDecorator = new ConsoleDecorator();
         messageMock = mock(Message.class);
-        decorContentStrategyMock = mock(DecorContentStrategy.class);
     }
 
     @Test
@@ -30,7 +28,6 @@ public class ConsoleDecoratorClassTest {
         when(messageMock.getType()).thenReturn("java.lang.Byte");
         when(messageMock.getValue()).thenReturn((byte)1);
 
-//        when(decorContentStrategyMock.decorateContent(messageMock)).thenReturn("1");
         //endregion
 
         //region When
@@ -47,6 +44,7 @@ public class ConsoleDecoratorClassTest {
         //region Given
         when(messageMock.getType()).thenReturn("java.lang.Integer");
         when(messageMock.getValue()).thenReturn(1);
+
         //endregion
 
         //region When
@@ -63,6 +61,7 @@ public class ConsoleDecoratorClassTest {
         //region Given
         when(messageMock.getType()).thenReturn("java.lang.Boolean");
         when(messageMock.getValue()).thenReturn(true);
+
         //endregion
 
         //region When
@@ -79,6 +78,7 @@ public class ConsoleDecoratorClassTest {
         //region Given
         when(messageMock.getType()).thenReturn("java.lang.String");
         when(messageMock.getValue()).thenReturn("1");
+
         //endregion
 
         //region When
@@ -95,6 +95,7 @@ public class ConsoleDecoratorClassTest {
         //region Given
         when(messageMock.getType()).thenReturn("java.lang.Object");
         when(messageMock.getValue()).thenReturn("java.lang.Object@11111111");
+
         //endregion
 
         //region When
@@ -111,6 +112,7 @@ public class ConsoleDecoratorClassTest {
         //region Given
         when(messageMock.getType()).thenReturn("java.lang.Character");
         when(messageMock.getValue()).thenReturn('1');
+
         //endregion
 
         //region When
@@ -127,6 +129,7 @@ public class ConsoleDecoratorClassTest {
         //region Given
         when(messageMock.getType()).thenReturn("[I");
         when(messageMock.getValue()).thenReturn(new int[] {1,0,1});
+
         //endregion
 
         //region When
@@ -155,6 +158,63 @@ public class ConsoleDecoratorClassTest {
                 + "{0}" + System.lineSeparator()
                 + "{1}" + System.lineSeparator()
                 + "}", result);
+        //endregion
+    }
+
+    @Test
+    public void shouldDecorateThreeDimensionalArray() {
+        //region Given
+        when(messageMock.getType()).thenReturn("[[[I");
+        when(messageMock.getValue()).thenReturn(new int[][][] {{{1},{0},{1}}});
+        //endregion
+
+        //region When
+        result = consoleDecorator.decorate(messageMock);
+        //endregion
+
+        //region Then
+        assertEquals("primitives multimatrix: {" + System.lineSeparator()
+                + "{" + System.lineSeparator()
+                + "{1}" + System.lineSeparator()
+                + "{0}" + System.lineSeparator()
+                + "{1}" + System.lineSeparator()
+                + "}" + System.lineSeparator()
+                + "}", result);
+        //endregion
+    }
+
+    @Test
+    public void shouldDecorateFourDimensionalArray() {
+        //region Given
+        when(messageMock.getType()).thenReturn("[[[[I");
+        when(messageMock.getValue()).thenReturn(new int[][][][] {{{{1},{0},{1}}}});
+        //endregion
+
+        //region When
+        result = consoleDecorator.decorate(messageMock);
+        //endregion
+
+        //region Then
+        assertEquals("primitives multimatrix: {" + System.lineSeparator()
+                + "{" + System.lineSeparator()
+                + "{" + System.lineSeparator()
+                + "{1}" + System.lineSeparator()
+                + "{0}" + System.lineSeparator()
+                + "{1}" + System.lineSeparator()
+                + "}" + System.lineSeparator()
+                + "}" + System.lineSeparator()
+                + "}", result);
+        //endregion
+    }
+
+    @Test(expected = DecorateException.class)
+    public void shouldThrowExepception() {
+        //region Given
+        when(messageMock.getType()).thenReturn("[[[[[I");
+        //endregion
+
+        //region When
+        result = consoleDecorator.decorate(messageMock);
         //endregion
     }
 }

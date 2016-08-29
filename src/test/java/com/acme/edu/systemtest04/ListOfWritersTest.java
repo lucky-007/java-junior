@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.io.*;
 
+@Ignore
 public class ListOfWritersTest implements SysoutCaptureAndAssertionAbility {
     private Logger logger;
     //region given
