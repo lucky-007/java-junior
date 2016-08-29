@@ -3,6 +3,9 @@ package com.acme.edu.strategies;
 import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
+/**
+ * 2-dim array strategy
+ */
 public class TwoDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
     /**
      * 2-dimm arr decoration

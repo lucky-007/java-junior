@@ -3,6 +3,9 @@ package com.acme.edu.strategies;
 import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
+/**
+ * 3-dim array strategy
+ */
 public class ThreeDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
     /**
      * 3-dim arr decor
