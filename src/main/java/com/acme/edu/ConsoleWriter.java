@@ -4,10 +4,13 @@ import com.acme.edu.exceptions.LoggerAppendException;
 import com.acme.edu.interfaces.Writer;
 import com.acme.edu.message.Message;
 
+/**
+ * Logger writer to console.
+ */
 public class ConsoleWriter implements Writer {
     /**
      * Writes string from {@link Message}.getOutput method to console.
-     * @param message
+     * @param message input message
      */
     @Override
     public void write(Message message) throws LoggerAppendException {

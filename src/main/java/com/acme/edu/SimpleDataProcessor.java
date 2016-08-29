@@ -3,6 +3,9 @@ package com.acme.edu;
 import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DataProcessor;
 
+/**
+ * Class of data processing for presentation of polymorphism.
+ */
 public class SimpleDataProcessor implements DataProcessor {
 
     private Message savedMessage;

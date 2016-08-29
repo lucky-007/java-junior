@@ -3,9 +3,12 @@ package com.acme.edu;
 import com.acme.edu.interfaces.Decorator;
 import com.acme.edu.message.Message;
 
+/**
+ * Decorator for demonstration polymorphism.
+ */
 public class AwesomeDecorator implements Decorator {
     /**
-     * Decorator for demonstration polymorphism.
+     * Method for decoration  message String
      * @param message Input message
      * @return Decorated String
      */

@@ -7,6 +7,9 @@ import com.acme.edu.interfaces.Decorator;
 import com.acme.edu.message.Message;
 import com.acme.edu.strategies.*;
 
+/**
+ * Decorator for constructing the string with business logic
+ */
 public class ConsoleDecorator implements Decorator {
 
     private DecorContentStrategy decorContentStrategy = null;
@@ -14,7 +17,7 @@ public class ConsoleDecorator implements Decorator {
     /**
      * Decorate output string with specification of customer.
      * Uses {@link Message}.setOutput method to set output string.
-     * @param message
+     * @param message input Message.
      * @see Message
      */
     @Override

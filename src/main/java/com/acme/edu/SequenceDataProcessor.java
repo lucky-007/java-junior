@@ -10,6 +10,9 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class processing data with compliance with business logic.
+ */
 public class SequenceDataProcessor implements DataProcessor {
 
     private Message savedMessage;

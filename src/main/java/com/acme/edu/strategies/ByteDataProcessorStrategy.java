@@ -4,9 +4,14 @@ import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.CountingDataProcessorStrategy;
 
 /**
- * Created by daniil on 29.08.16.
+ * Class for BYTE data processing
  */
 public class ByteDataProcessorStrategy implements CountingDataProcessorStrategy {
+    /**
+     *
+     * @param message
+     * @param savedMessage
+     */
     @Override
     public void processData(Message message, Message savedMessage) {
         if(Byte.MAX_VALUE - Math.abs((byte) savedMessage.getValue()) < (byte) message.getValue()

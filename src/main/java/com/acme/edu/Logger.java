@@ -8,6 +8,9 @@ import com.acme.edu.interfaces.Decorator;
 import com.acme.edu.interfaces.Writer;
 import com.acme.edu.message.Message;
 
+/**
+ * Main class for Logger
+ */
 public class Logger {
 
     private final Decorator decorator;
