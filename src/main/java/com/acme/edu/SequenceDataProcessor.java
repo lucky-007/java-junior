@@ -1,6 +1,9 @@
 package com.acme.edu;
 
 import com.acme.edu.interfaces.DataProcessor;
+import com.acme.edu.interfaces.DataProcessorStrategy;
+import com.acme.edu.strategies.ByteDataProcessorStrategy;
+import com.acme.edu.strategies.IntDataProcessorStrategy;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -43,22 +46,15 @@ public class SequenceDataProcessor implements DataProcessor {
     private int count;
 
     private void processSequenceData(Message message) {
+        DataProcessorStrategy dataProcessorStrategy = null;
         switch(message.getType()) {
             case "java.lang.Byte":
-                if(Byte.MAX_VALUE - Math.abs((byte) savedMessage.getValue()) < (byte) message.getValue()
-                        || Byte.MIN_VALUE + Math.abs((byte) savedMessage.getValue()) > (byte) message.getValue()) {
-                    savedMessage.setFlagToWrite(true);
-                } else {
-                    savedMessage.setValue((byte)((byte) savedMessage.getValue() + (byte) message.getValue()));
-                }
+                dataProcessorStrategy = new ByteDataProcessorStrategy();
+                dataProcessorStrategy.processData(message, savedMessage);
                 break;
             case "java.lang.Integer":
-                if(Integer.MAX_VALUE - Math.abs((int) savedMessage.getValue()) < (int) message.getValue()
-                        || Integer.MIN_VALUE + Math.abs((int) savedMessage.getValue()) > (int) message.getValue()) {
-                    savedMessage.setFlagToWrite(true);
-                } else {
-                    savedMessage.setValue((int) savedMessage.getValue() + (int) message.getValue());
-                }
+                dataProcessorStrategy = new IntDataProcessorStrategy();
+                dataProcessorStrategy.processData(message, savedMessage);
                 break;
             case "java.lang.String":
                 Pattern p = Pattern.compile("^"+ message.getValue() +"($| \\(x\\d+\\)$)");
