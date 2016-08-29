@@ -1,7 +1,7 @@
 package com.acme.edu.exceptions;
 
 /**
- * Exception if something went wrong whilst logging
+ * Exception if something went wrong while logging
  */
 public class LoggerAppendException extends Exception {
 }

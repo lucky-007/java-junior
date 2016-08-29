@@ -26,7 +26,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test
-    public void shouldLogIntegersArray() throws IOException {
+    public void shouldLogIntegersOneDimensionalArray() throws IOException {
         //region when
         logger.logIntArray(new int[] {-1, 0, 1});
         logger.stopLogging();
@@ -40,7 +40,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogIntegersMatrix() throws IOException {
+    public void shouldLogIntegersTwoDimensionalArray() throws IOException {
         //region when
         logger.logIntArray(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
         logger.stopLogging();
@@ -58,7 +58,27 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogIntegersMulitidimentionalArray() throws IOException {
+    public void shouldLogIntegersThreeDimensionalArray() throws IOException {
+        //region when
+        logger.logIntArray(new int[][][] {{{-1, 0}, {1, 2}, {-1, -2}}});
+        logger.stopLogging();
+        //endregion
+
+        //region then
+        assertSysoutEquals(
+                "primitives multimatrix: {"+System.lineSeparator() +
+                        "{" + System.lineSeparator() +
+                        "{-1, 0}"+System.lineSeparator() +
+                        "{1, 2}"+System.lineSeparator() +
+                        "{-1, -2}"+System.lineSeparator() +
+                        "}" + System.lineSeparator() +
+                        "}"+System.lineSeparator()
+        );
+        //endregion
+    }
+
+    @Test
+    public void shouldLogIntegersFourDimensionalArray() throws IOException {
         //region when
         logger.logIntArray(new int[][][][] {{{{0}}}});
         logger.stopLogging();

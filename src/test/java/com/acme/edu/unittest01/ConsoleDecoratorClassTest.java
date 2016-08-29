@@ -4,6 +4,7 @@ import com.acme.edu.ConsoleDecorator;
 import com.acme.edu.exceptions.DecorateException;
 import com.acme.edu.message.Message;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -208,7 +209,7 @@ public class ConsoleDecoratorClassTest {
     }
 
     @Test(expected = DecorateException.class)
-    public void shouldThrowExepception() {
+    public void shouldThrowDecorateExepception() {
         //region Given
         when(messageMock.getType()).thenReturn("[[[[[I");
         //endregion

@@ -48,7 +48,6 @@ public class SequenceDataProcessor implements DataProcessor {
                 savedMessage.setFlagToWrite(true);
                 count = 1;
             }
-
             outputMessage = savedMessage;
             if (savedMessage.getFlagToWrite()) {
                 savedMessage = message;
