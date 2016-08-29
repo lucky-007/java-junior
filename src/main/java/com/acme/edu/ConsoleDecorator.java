@@ -33,13 +33,7 @@ public class ConsoleDecorator implements Decorator {
         String result;
         switch (message.getType()) {
             case "java.lang.Boolean":
-                decorContentStrategy = new ToStringDecorContentStrategy();
-                result = "primitive: ";
-                break;
             case "java.lang.Byte":
-                decorContentStrategy = new ToStringDecorContentStrategy();
-                result = "primitive: ";
-                break;
             case "java.lang.Integer":
                 decorContentStrategy = new ToStringDecorContentStrategy();
                 result = "primitive: ";
