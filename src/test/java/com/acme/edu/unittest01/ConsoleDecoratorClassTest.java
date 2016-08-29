@@ -2,9 +2,8 @@ package com.acme.edu.unittest01;
 
 import com.acme.edu.ConsoleDecorator;
 import com.acme.edu.interfaces.DecorContentStrategy;
-import com.acme.edu.Message;
+import com.acme.edu.message.Message;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

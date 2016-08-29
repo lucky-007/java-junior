@@ -1,6 +1,7 @@
 package com.acme.edu;
 
 import com.acme.edu.interfaces.Decorator;
+import com.acme.edu.message.Message;
 
 public class AwesomeDecorator implements Decorator {
     @Override

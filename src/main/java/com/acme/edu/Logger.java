@@ -6,6 +6,7 @@ import com.acme.edu.exceptions.LoggingNullPointerException;
 import com.acme.edu.interfaces.DataProcessor;
 import com.acme.edu.interfaces.Decorator;
 import com.acme.edu.interfaces.Writer;
+import com.acme.edu.message.Message;
 
 public class Logger {
 

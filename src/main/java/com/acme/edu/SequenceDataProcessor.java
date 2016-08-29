@@ -2,6 +2,7 @@ package com.acme.edu;
 
 import com.acme.edu.interfaces.DataProcessor;
 import com.acme.edu.interfaces.DataProcessorStrategy;
+import com.acme.edu.message.Message;
 import com.acme.edu.strategies.ByteDataProcessorStrategy;
 import com.acme.edu.strategies.IntDataProcessorStrategy;
 

@@ -4,6 +4,7 @@ import com.acme.edu.exceptions.ContentDecorateException;
 import com.acme.edu.exceptions.DecorateException;
 import com.acme.edu.interfaces.DecorContentStrategy;
 import com.acme.edu.interfaces.Decorator;
+import com.acme.edu.message.Message;
 import com.acme.edu.strategies.FourDimensionalArrayDecorContentStrategy;
 import com.acme.edu.strategies.OneDimensionalArrayDecorContentStrategy;
 import com.acme.edu.strategies.ToStringDecorContentStrategy;

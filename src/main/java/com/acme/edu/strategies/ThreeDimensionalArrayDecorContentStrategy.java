@@ -1,6 +1,6 @@
 package com.acme.edu.strategies;
 
-import com.acme.edu.Message;
+import com.acme.edu.message.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
 public class ThreeDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
