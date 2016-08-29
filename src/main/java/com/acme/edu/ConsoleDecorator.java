@@ -2,6 +2,10 @@ package com.acme.edu;
 
 import com.acme.edu.interfaces.DecorContentStrategy;
 import com.acme.edu.interfaces.Decorator;
+import com.acme.edu.strategies.FourDimensionalArrayDecorContentStrategy;
+import com.acme.edu.strategies.OneDimensionalArrayDecorContentStrategy;
+import com.acme.edu.strategies.ToStringDecorContentStrategy;
+import com.acme.edu.strategies.TwoDimensionalArrayDecorContentStrategy;
 
 public class ConsoleDecorator implements Decorator {
     /**

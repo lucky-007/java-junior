@@ -1,8 +1,9 @@
-package com.acme.edu;
+package com.acme.edu.strategies;
 
+import com.acme.edu.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
-class ToStringDecorContentStrategy implements DecorContentStrategy {
+public class ToStringDecorContentStrategy implements DecorContentStrategy {
     @Override
     public String decorateContent(Message message) {
         return message.getValue().toString();

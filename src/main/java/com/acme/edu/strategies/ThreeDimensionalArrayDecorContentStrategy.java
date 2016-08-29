@@ -1,14 +1,15 @@
-package com.acme.edu;
+package com.acme.edu.strategies;
 
+import com.acme.edu.Message;
 import com.acme.edu.interfaces.DecorContentStrategy;
 
-class ThreeDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
+public class ThreeDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
     @Override
     public String decorateContent(Message message) {
-        return "{" + System.lineSeparator() + TwoDimensionalArrayProccess((int[][][])message.getValue()) + "}";
+        return "{" + System.lineSeparator() + TwoDimensionalArrayProcess((int[][][])message.getValue()) + "}";
     }
 
-    private String TwoDimensionalArrayProccess(int[][][] array3D) {
+    private String TwoDimensionalArrayProcess(int[][][] array3D) {
         TwoDimensionalArrayDecorContentStrategy array2DecorContentStrategy = new TwoDimensionalArrayDecorContentStrategy();
         String result = "";
         for (int[][] array2D : array3D) {

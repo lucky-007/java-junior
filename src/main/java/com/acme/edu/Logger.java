@@ -18,7 +18,7 @@ public class Logger {
 
         this.decorator = decorator;
         this.dataProcessor = dataProcessor;
-        for (int i = 0; i < listOfWriters.length; i++) this.listOfWriters[i] = listOfWriters[i];
+        System.arraycopy(listOfWriters, 0, this.listOfWriters, 0, listOfWriters.length);
     }
 
     /**
