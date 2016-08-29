@@ -47,7 +47,7 @@ public class Logger {
                 log(element);
             }
         } catch (NullPointerException e) {
-            throw new LoggingNullPointerException("Null pointer in the input of logger!");
+            throw new LoggingNullPointerException("Null pointer in the input of logger!", e);
         }
     }
 
@@ -60,7 +60,7 @@ public class Logger {
             Message message = new Message(mes);
             processMessage(message);
         } catch (NullPointerException e) {
-            throw new LoggingNullPointerException("Null pointer in the input of logger!");
+            throw new LoggingNullPointerException("Null pointer in the input of logger!", e);
         }
     }
 
@@ -103,18 +103,16 @@ public class Logger {
 
     private void decorateAndPrintMessage(Message message) {
         try {
-//todo HERE!!!!!!!!!!!
             message.setResult(decorator.decorate(message));
+            for (Writer writer: listOfWriters) {
+                try {
+                    writer.write(message);
+                } catch (LoggerAppendException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (DecorateException e) {
             e.printStackTrace();
-        }
-
-        for (Writer writer: listOfWriters) {
-            try {
-                writer.write(message);
-            } catch (LoggerAppendException e) {
-                e.printStackTrace();
-            }
         }
     }
 
