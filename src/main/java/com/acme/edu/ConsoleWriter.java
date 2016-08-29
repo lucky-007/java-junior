@@ -1,5 +1,6 @@
 package com.acme.edu;
 
+import com.acme.edu.exceptions.LoggerAppendException;
 import com.acme.edu.interfaces.Writer;
 
 public class ConsoleWriter implements Writer {
@@ -8,7 +9,7 @@ public class ConsoleWriter implements Writer {
      * @param message
      */
     @Override
-    public void write(Message message) {
+    public void write(Message message) throws LoggerAppendException {
         System.out.println(message.getResult());
     }
 }

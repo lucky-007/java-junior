@@ -1,5 +1,8 @@
 package com.acme.edu;
 
+import com.acme.edu.exceptions.DecorateException;
+import com.acme.edu.exceptions.LoggerAppendException;
+import com.acme.edu.exceptions.LoggingNullPointerException;
 import com.acme.edu.interfaces.DataProcessor;
 import com.acme.edu.interfaces.Decorator;
 import com.acme.edu.interfaces.Writer;
@@ -34,8 +37,12 @@ public class Logger {
      * @param mes Object...
      */
     public void log (Object... mes) {
-        for (Object element: mes) {
-            log(element);
+        try {
+            for (Object element : mes) {
+                log(element);
+            }
+        } catch (NullPointerException e) {
+            throw new LoggingNullPointerException("Null pointer in the input of logger!");
         }
     }
 
@@ -44,8 +51,12 @@ public class Logger {
      * @param mes Object
      */
     public void log (Object mes) {
-        Message message = new Message(mes);
-        processMessage(message);
+        try {
+            Message message = new Message(mes);
+            processMessage(message);
+        } catch (NullPointerException e) {
+            throw new LoggingNullPointerException("Null pointer in the input of logger!");
+        }
     }
 
     /**
@@ -90,9 +101,19 @@ public class Logger {
 
 
     private void decorateAndPrintMessage(Message message) {
-        message.setResult(decorator.decorate(message));
+        try {
+//todo HERE!!!!!!!!!!!
+            message.setResult(decorator.decorate(message));
+        } catch (DecorateException e) {
+            e.printStackTrace();
+        }
+
         for (Writer writer: listOfWriters) {
-            writer.write(message);
+            try {
+                writer.write(message);
+            } catch (LoggerAppendException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -103,6 +124,5 @@ public class Logger {
             dataProcessor.setMessage(message);
         }
     }
-
 }
 

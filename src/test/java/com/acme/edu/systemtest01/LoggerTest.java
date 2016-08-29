@@ -2,6 +2,7 @@ package com.acme.edu.systemtest01;
 
 import com.acme.edu.*;
 import com.acme.edu.SimpleDataProcessor;
+import com.acme.edu.exceptions.LoggingNullPointerException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         resetOut();
     }
     //endregion
+
+    @Test(expected = LoggingNullPointerException.class)
+    public void shouldThrowExceptionWhenLoggingNullPointer() {
+        logger.log(null);
+    }
 
     @Test
     public void shouldLogInteger() throws IOException {

@@ -1,5 +1,7 @@
 package com.acme.edu;
 
+import com.acme.edu.exceptions.ContentDecorateException;
+import com.acme.edu.exceptions.DecorateException;
 import com.acme.edu.interfaces.DecorContentStrategy;
 import com.acme.edu.interfaces.Decorator;
 import com.acme.edu.strategies.FourDimensionalArrayDecorContentStrategy;
@@ -15,15 +17,19 @@ public class ConsoleDecorator implements Decorator {
      * @see Message
      */
     @Override
-    public String decorate(Message message) {
-        return  getPrefix(message) + getContent(message) + getPostfix(message);
+    public String decorate(Message message) throws DecorateException {
+        try {
+            return  getPrefix(message) + getContent(message) + getPostfix(message);
+        } catch (ContentDecorateException e) {
+            throw new DecorateException("Can\'t decorate message", e);
+        }
     }
 
     private String getPostfix(Message message) {
         return "";
     }
 
-    private String getContent(Message message) {
+    private String getContent(Message message) throws ContentDecorateException {
         DecorContentStrategy decorContentStrategy = null;
         switch (message.getType()) {
             case "java.lang.Boolean":
@@ -43,6 +49,8 @@ public class ConsoleDecorator implements Decorator {
             case "[[[[I":
                 decorContentStrategy = new FourDimensionalArrayDecorContentStrategy();
                 break;
+            default:
+                throw new ContentDecorateException("Wrong input type.");
         }
         return decorContentStrategy.decorateContent(message);
     }
