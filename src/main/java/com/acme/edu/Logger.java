@@ -10,6 +10,10 @@ import com.acme.edu.message.Message;
 
 public class Logger {
 
+    private final Decorator decorator;
+    private final DataProcessor dataProcessor;
+    private final Writer[] listOfWriters;
+
     /**
      * Logger constructor.
      * @param decorator Decorator
@@ -95,10 +99,6 @@ public class Logger {
         Message message = new Message(mes);
         processMessage(message);
     }
-
-    private final Decorator decorator;
-    private final DataProcessor dataProcessor;
-    private final Writer[] listOfWriters;
 
 
     private void decorateAndPrintMessage(Message message) {

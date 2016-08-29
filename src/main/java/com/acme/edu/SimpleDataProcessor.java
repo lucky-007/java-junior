@@ -8,6 +8,8 @@ import com.acme.edu.interfaces.DataProcessor;
  */
 public class SimpleDataProcessor implements DataProcessor {
 
+    private Message savedMessage;
+
     public SimpleDataProcessor() {
         this.savedMessage = null;
     }
@@ -27,6 +29,4 @@ public class SimpleDataProcessor implements DataProcessor {
     public void setMessage(Message message) {
         this.savedMessage = message;
     }
-
-    private Message savedMessage;
 }

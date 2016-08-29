@@ -12,6 +12,9 @@ import java.util.regex.Pattern;
 
 public class SequenceDataProcessor implements DataProcessor {
 
+    private Message savedMessage;
+    private int count;
+
     public SequenceDataProcessor() {
         this.savedMessage = null;
         this.count = 0;
@@ -42,9 +45,6 @@ public class SequenceDataProcessor implements DataProcessor {
     public void setMessage(Message message) {
         this.savedMessage = message;
     }
-
-    private Message savedMessage;
-    private int count;
 
     private void processSequenceData(Message message) {
         DataProcessorStrategy dataProcessorStrategy = null;
