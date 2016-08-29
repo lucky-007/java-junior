@@ -18,7 +18,7 @@ public class ConsoleDecorator implements Decorator {
      * @see Message
      */
     @Override
-    public String decorate(Message message) throws DecorateException {
+    public String decorate(Message message) {
         try {
             return  getContent(message) + getPostfix(message);
         } catch (ContentDecorateException e) {
