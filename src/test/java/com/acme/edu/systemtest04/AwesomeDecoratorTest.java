@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import java.io.*;
 
-@Ignore
 public class AwesomeDecoratorTest implements SysoutCaptureAndAssertionAbility {
     private Logger logger;
     //region given

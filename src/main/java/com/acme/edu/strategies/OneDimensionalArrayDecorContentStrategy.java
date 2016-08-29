@@ -7,7 +7,7 @@ public class OneDimensionalArrayDecorContentStrategy implements DecorContentStra
     @Override
     public String decorateContent(Message message) {
         String content = "{";
-        int[] array1D = ((int[])message.getValue());
+        int[] array1D = (int[])message.getValue();
         for (int element : array1D) {
             content += element + ", ";
         }

@@ -18,7 +18,7 @@ public class SequenceDataProcessor implements DataProcessor {
 
     @Override
     public Message processData(Message message) {
-        if ((savedMessage != null)){
+        if (savedMessage != null){
             if (message != null) {
                 if (Objects.equals(message.getType(), savedMessage.getType())){
                     processSequenceData(message);

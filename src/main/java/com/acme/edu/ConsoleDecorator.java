@@ -19,7 +19,7 @@ public class ConsoleDecorator implements Decorator {
     @Override
     public String decorate(Message message) throws DecorateException {
         try {
-            return  getPrefix(message) + getContent(message) + getPostfix(message);
+            return  getContent(message) + getPostfix(message);
         } catch (ContentDecorateException e) {
             throw new DecorateException("Can\'t decorate message", e);
         }
@@ -30,58 +30,42 @@ public class ConsoleDecorator implements Decorator {
     }
 
     private String getContent(Message message) throws ContentDecorateException {
+        String result = "";
         DecorContentStrategy decorContentStrategy = null;
         switch (message.getType()) {
             case "java.lang.Boolean":
             case "java.lang.Byte":
             case "java.lang.Integer":
+                decorContentStrategy = new ToStringDecorContentStrategy();
+                result = "primitive: " + decorContentStrategy.decorateContent(message);
+                break;
             case "java.lang.Character":
+                decorContentStrategy = new ToStringDecorContentStrategy();
+                result = "char: " + decorContentStrategy.decorateContent(message);
+                break;
             case "java.lang.String":
+                decorContentStrategy = new ToStringDecorContentStrategy();
+                result = "string: " + decorContentStrategy.decorateContent(message);
+                break;
             case "java.lang.Object":
                 decorContentStrategy = new ToStringDecorContentStrategy();
+                result = "reference: " + decorContentStrategy.decorateContent(message);
                 break;
             case "[I":
                 decorContentStrategy = new OneDimensionalArrayDecorContentStrategy();
+                result = "primitives array: " + decorContentStrategy.decorateContent(message);
                 break;
             case "[[I":
                 decorContentStrategy = new TwoDimensionalArrayDecorContentStrategy();
+                result = "primitives matrix: " + decorContentStrategy.decorateContent(message);
                 break;
             case "[[[[I":
                 decorContentStrategy = new FourDimensionalArrayDecorContentStrategy();
+                result = "primitives multimatrix: " + decorContentStrategy.decorateContent(message);
                 break;
             default:
                 throw new ContentDecorateException("Wrong input type.");
         }
-        return decorContentStrategy.decorateContent(message);
-    }
-
-    private String getPrefix(Message message) {
-        String prefix = "";
-        switch (message.getType()) {
-            case "java.lang.Boolean":
-            case "java.lang.Byte":
-            case "java.lang.Integer":
-                prefix = "primitive: ";
-                break;
-            case "[I":
-                prefix = "primitives array: ";
-                break;
-            case "[[I":
-                prefix = "primitives matrix: ";
-                break;
-            case "[[[[I":
-                prefix = "primitives multimatrix: ";
-                break;
-            case "java.lang.Character":
-                prefix = "char: ";
-                break;
-            case "java.lang.String":
-                prefix = "string: ";
-                break;
-            case "java.lang.Object":
-                prefix ="reference: ";
-                break;
-        }
-        return prefix;
+        return result;
     }
 }

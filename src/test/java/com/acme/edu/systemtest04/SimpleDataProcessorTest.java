@@ -8,14 +8,14 @@ import org.junit.Test;
 
 import java.io.*;
 
-public class ListOfWritersTest implements SysoutCaptureAndAssertionAbility {
+public class SimpleDataProcessorTest implements SysoutCaptureAndAssertionAbility {
     private Logger logger;
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        logger = new Logger(new ConsoleDecorator(), new SequenceDataProcessor(), new ConsoleWriter(), new NotConsoleWriter());
+        logger = new Logger(new ConsoleDecorator(), new SimpleDataProcessor(), new ConsoleWriter());
     }
 
     @After
@@ -28,14 +28,16 @@ public class ListOfWritersTest implements SysoutCaptureAndAssertionAbility {
     public void loggingToDifferentSource() throws IOException {
         //region when
         logger.log(1);
+        logger.log(0);
+        logger.log(-1);
         logger.stopLogging();
         //endregion
 
         //region then
         assertSysoutContains("primitive: ");
         assertSysoutContains("1");
-        assertSysoutContains("[NOT CONSOLE]: ");
-        assertSysoutContains("1");
+        assertSysoutContains("0");
+        assertSysoutContains("-1");
         //endregion
     }
 }

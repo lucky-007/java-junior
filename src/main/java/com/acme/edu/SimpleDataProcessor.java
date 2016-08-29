@@ -14,7 +14,7 @@ public class SimpleDataProcessor implements DataProcessor {
 
     @Override
     public Message processData(Message message) {
-        if ((savedMessage != null)){
+        if (savedMessage != null){
             savedMessage.setFlagToWrite(true);
         }
         else {
