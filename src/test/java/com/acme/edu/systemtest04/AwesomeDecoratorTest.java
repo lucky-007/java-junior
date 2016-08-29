@@ -16,7 +16,7 @@ public class AwesomeDecoratorTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        logger = new Logger(new AwesomeDecorator(), new ConsoleWriter());
+        logger = new Logger(new AwesomeDecorator(), new SequenceDataProcessor(), new ConsoleWriter());
     }
 
     @After

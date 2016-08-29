@@ -1,6 +1,8 @@
 package com.acme.edu;
 
-class OneDimensionalArrayDecorContentStrategy implements DecorContentStrategy{
+import com.acme.edu.interfaces.DecorContentStrategy;
+
+class OneDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
     @Override
     public String decorateContent(Message message) {
         String content = "{";

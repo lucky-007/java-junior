@@ -1,5 +1,8 @@
 package com.acme.edu;
 
+import com.acme.edu.interfaces.DecorContentStrategy;
+import com.acme.edu.interfaces.Decorator;
+
 public class ConsoleDecorator implements Decorator {
     /**
      * Decorate output string with specification of customer.
@@ -9,16 +12,14 @@ public class ConsoleDecorator implements Decorator {
      */
     @Override
     public String decorate(Message message) {
-        return  getPrefix(message) +
-                chooseDecorStrategy(message).decorateContent(message) +
-                getPostfix(message);
+        return  getPrefix(message) + getContent(message) + getPostfix(message);
     }
 
     private String getPostfix(Message message) {
         return "";
     }
 
-    private DecorContentStrategy chooseDecorStrategy(Message message) {
+    private String getContent(Message message) {
         DecorContentStrategy decorContentStrategy = null;
         switch (message.getType()) {
             case "java.lang.Boolean":
@@ -39,7 +40,7 @@ public class ConsoleDecorator implements Decorator {
                 decorContentStrategy = new FourDimensionalArrayDecorContentStrategy();
                 break;
         }
-        return decorContentStrategy;
+        return decorContentStrategy.decorateContent(message);
     }
 
     private String getPrefix(Message message) {

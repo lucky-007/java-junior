@@ -1,17 +1,13 @@
 package com.acme.edu.systemtest01;
 
-import com.acme.edu.ConsoleDecorator;
-import com.acme.edu.ConsoleWriter;
-import com.acme.edu.Logger;
-import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.*;
+import com.acme.edu.SimpleDataProcessor;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
 
-@Ignore
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     private Logger logger;
     //region given
@@ -19,7 +15,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        logger = new Logger(new ConsoleDecorator(), new ConsoleWriter());
+        logger = new Logger(new ConsoleDecorator(), new SequenceDataProcessor(), new ConsoleWriter());
     }
 
     @After

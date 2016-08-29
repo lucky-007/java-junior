@@ -1,5 +1,7 @@
 package com.acme.edu;
 
+import com.acme.edu.interfaces.DecorContentStrategy;
+
 class ThreeDimensionalArrayDecorContentStrategy implements DecorContentStrategy {
     @Override
     public String decorateContent(Message message) {

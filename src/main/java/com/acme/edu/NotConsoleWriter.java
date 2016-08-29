@@ -1,6 +1,6 @@
 package com.acme.edu;
 
-import com.acme.edu.Writer;
+import com.acme.edu.interfaces.Writer;
 
 public class NotConsoleWriter implements Writer {
     @Override

@@ -16,7 +16,7 @@ public class ListOfWritersTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        logger = new Logger(new ConsoleDecorator(), new ConsoleWriter(), new NotConsoleWriter());
+        logger = new Logger(new ConsoleDecorator(), new SequenceDataProcessor(), new ConsoleWriter(), new NotConsoleWriter());
     }
 
     @After
