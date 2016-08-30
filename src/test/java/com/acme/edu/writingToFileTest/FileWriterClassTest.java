@@ -5,15 +5,17 @@ import com.acme.edu.exceptions.LoggerAppendException;
 import com.acme.edu.interfaces.Writer;
 import com.acme.edu.message.Message;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.output.StringBuilderWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.IOException;
+import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,6 +23,17 @@ public class FileWriterClassTest {
     private Writer writer;
     private Message message;
     private File path = new File(new File("logs"), "log.txt");
+
+    private void deleteFilesAndFolder() {
+        if (path.getParentFile() != null) {
+            if(path.getParentFile().listFiles() != null) {
+                for (File f : path.getParentFile().listFiles()) {
+                    f.delete();
+                }
+            }
+            path.getParentFile().delete();
+        }
+    }
 
     @Before
     public void setUp() {
@@ -33,17 +46,6 @@ public class FileWriterClassTest {
         }
 
         message = mock(Message.class);
-    }
-
-    private void deleteFilesAndFolder() {
-        if (path.getParentFile() != null) {
-            if(path.getParentFile().listFiles() != null) {
-                for (File f : path.getParentFile().listFiles()) {
-                    f.delete();
-                }
-            }
-            path.getParentFile().delete();
-        }
     }
 
     @After
