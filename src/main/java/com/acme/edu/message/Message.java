@@ -4,7 +4,7 @@ package com.acme.edu.message;
  * class-container of input values.
  */
 public class Message {
-    private String type;
+    private final String type;
     private Object value;
     private String result;
     private boolean flagToWrite;
