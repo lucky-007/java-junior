@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 public class FileWriterClassTest {
     private Writer writer;
     private Message message;
-    private File path = new File(new File("logs"), "log.txt");
+    private File path = new File(new File("." + File.separator +  "log"), "log.txt");
 
     private void deleteFilesAndFolder() {
         if (path.getParentFile() != null) {
