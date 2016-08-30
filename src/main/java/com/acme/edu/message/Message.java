@@ -34,14 +34,14 @@ public class Message {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Message message = (Message) o;
-
-        if (!type.equals(message.type)) return false;
-        return value.equals(message.value);
-
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof Message) {
+            Message message = (Message) o;
+            return type.equals(message.type) && value.equals(message.value);
+        }
+        return false;
     }
 
     /**
@@ -50,9 +50,9 @@ public class Message {
      */
     @Override
     public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + value.hashCode();
-        return result;
+        int hash = type.hashCode();
+        hash = 31 * hash + value.hashCode();
+        return hash;
     }
 
     /**
