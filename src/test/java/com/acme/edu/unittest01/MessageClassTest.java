@@ -78,6 +78,13 @@ public class MessageClassTest {
     }
 
     @Test
+    public void shouldNotEqualsWithDifferentTypes () {
+        mes1 = new Message(3);
+        mes2 = new Message("3");
+        assertEquals(mes1.equals(mes2), false);
+    }
+
+    @Test
     public void shouldNotEqualsTwoMessages () {
         mes1 = new Message(3);
         mes2 = new Message(4);
