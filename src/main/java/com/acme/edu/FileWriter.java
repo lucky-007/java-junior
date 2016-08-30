@@ -10,6 +10,7 @@ public class FileWriter implements Writer {
     private File filePath;
 
     public FileWriter(File path) throws LoggerAppendException {
+        String filename = path.getName();
         path = path.getAbsoluteFile();
         if(!path.isDirectory()) {
             path = path.getParentFile();
@@ -22,7 +23,7 @@ public class FileWriter implements Writer {
             }
         }
 
-        filePath = new File(path, "log.txt");
+        filePath = new File(path, filename);
     }
 
     @Override
@@ -41,12 +42,9 @@ public class FileWriter implements Writer {
     }
 
     public static void main(String[] args) throws LoggerAppendException {
-        Writer writer = new FileWriter(new File(new File("logs"), "logs.txt"));
+        Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
         Message m = new Message(5);
         m.setResult("12341234 => 5");
         writer.write(m);
-
-
-
     }
 }
