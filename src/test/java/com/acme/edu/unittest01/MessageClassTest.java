@@ -85,6 +85,12 @@ public class MessageClassTest {
     }
 
     @Test
+    public void shouldNotEqualsWithNullPointer () {
+        mes1 = new Message(3);
+        assertEquals(mes1.equals(null), false);
+    }
+
+    @Test
     public void shouldNotEqualsHashTwoMessages () {
         mes1 = new Message(33);
         mes2 = new Message(4);
