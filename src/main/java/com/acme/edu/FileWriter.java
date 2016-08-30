@@ -10,6 +10,7 @@ import static java.lang.Thread.sleep;
 
 public class FileWriter implements Writer {
     private PrintWriter out;
+    private final File filePath;
 
     public FileWriter(File path) throws LoggerAppendException {
         String filename = path.getName();
@@ -25,7 +26,7 @@ public class FileWriter implements Writer {
             }
         }
 
-        File filePath = new File(path, filename);
+        filePath = new File(path, filename);
         try {
             out = new PrintWriter(
                     new BufferedWriter(
