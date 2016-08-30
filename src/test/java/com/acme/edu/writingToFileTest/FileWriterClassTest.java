@@ -20,6 +20,8 @@ public class FileWriterClassTest {
 
     @Before
     public void setUp() {
+        deleteFilesAndFolder();
+
         try {
             writer = new FileWriter(path);
         } catch (LoggerAppendException e) {
@@ -27,19 +29,27 @@ public class FileWriterClassTest {
         }
 
         message = mock(Message.class);
-        path.delete();
+    }
+
+    private void deleteFilesAndFolder() {
+        if (path.getParentFile() != null) {
+            if(path.getParentFile().listFiles() != null) {
+                for (File f : path.getParentFile().listFiles()) {
+                    f.delete();
+                }
+            }
+            path.getParentFile().delete();
+        }
     }
 
     @After
     public void clear () {
-        path.delete();
+        deleteFilesAndFolder();
     }
 
     @Test
     public void shouldCreateAndWriteToFile () throws LoggerAppendException {
         when(message.getResult()).thenReturn("primitive: 5");
         writer.write(message);
-
-
     }
 }

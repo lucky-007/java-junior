@@ -28,12 +28,15 @@ public class FileWriter implements Writer {
     @Override
     public void write(Message message) throws LoggerAppendException {
         try (PrintWriter out = new PrintWriter(
-                new OutputStreamWriter(
+                new BufferedWriter(
+                        new OutputStreamWriter(
                             new BufferedOutputStream(
-                                    new FileOutputStream(filePath, true))))) {
+                                    new FileOutputStream(filePath, true)), "UTF-8")), true)) {
             out.println(message.getResult());
         } catch (FileNotFoundException e) {
             throw new LoggerAppendException("Troubles whilst writing to file", e);
+        } catch (UnsupportedEncodingException e) {
+            throw new LoggerAppendException("Encoding exception", e);
         }
     }
 
@@ -42,5 +45,8 @@ public class FileWriter implements Writer {
         Message m = new Message(5);
         m.setResult("12341234 => 5");
         writer.write(m);
+
+
+
     }
 }

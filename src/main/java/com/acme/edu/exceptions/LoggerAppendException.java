@@ -1,6 +1,7 @@
 package com.acme.edu.exceptions;
 
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Exception if something went wrong while logging
@@ -14,7 +15,7 @@ public class LoggerAppendException extends Exception {
         super(s);
     }
 
-    public LoggerAppendException(String s, FileNotFoundException e) {
+    public LoggerAppendException(String s, Exception e) {
         super(s,e);
     }
 }
