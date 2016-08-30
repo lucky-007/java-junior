@@ -38,6 +38,10 @@ public class Logger {
      */
     public void stopLogging() {
         tryDecorateAndPrintMessage(dataProcessor.processData(null));
+        for (Writer writer : listOfWriters) {
+            writer.flush();
+            writer.close();
+        }
     }
 
     /**

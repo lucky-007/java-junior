@@ -13,4 +13,8 @@ public interface Writer {
      * @throws LoggerAppendException if something goes wrong whilst writing.
      */
     void write(Message message) throws LoggerAppendException;
+
+    void flush();
+
+    void close();
 }

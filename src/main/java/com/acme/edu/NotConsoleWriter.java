@@ -17,4 +17,10 @@ public class NotConsoleWriter implements Writer {
     public void write(Message message) throws LoggerAppendException {
         System.out.println("[NOT CONSOLE]: " + message.getResult());
     }
+
+    @Override
+    public void flush() {}
+
+    @Override
+    public void close() {}
 }

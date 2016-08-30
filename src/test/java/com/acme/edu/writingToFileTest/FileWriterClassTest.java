@@ -11,11 +11,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.IOException;
-import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -33,6 +30,11 @@ public class FileWriterClassTest {
             }
             path.getParentFile().delete();
         }
+    }
+
+    private void flushAndClose() {
+        writer.flush();
+        writer.close();
     }
 
     @Before
@@ -58,6 +60,7 @@ public class FileWriterClassTest {
         String toWrite = "primitive: 5";
         when(message.getResult()).thenReturn(toWrite);
         writer.write(message);
+        flushAndClose();
 
         try {
             String file = FileUtils.readFileToString(path);
@@ -65,6 +68,38 @@ public class FileWriterClassTest {
         } catch (IOException e) {
             throw new LoggerAppendException("Can't read file in tests",e);
         }
-
     }
+
+    @Test
+    public void shouldWriteToSameFileWithNewLogger () throws LoggerAppendException {
+        String s1 = "primitive: 5";
+        String s2 = "primitive: 0";
+        when(message.getResult()).thenReturn(s1);
+        writer.write(message);
+        flushAndClose();
+
+        try {
+            writer = new FileWriter(path);
+            when(message.getResult()).thenReturn(s2);
+            writer.write(message);
+        } catch (LoggerAppendException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String file = FileUtils.readFileToString(path);
+            assertThat(file).contains(s1 + System.lineSeparator() + s2);
+        } catch (IOException e) {
+            throw new LoggerAppendException("Can't read file in tests",e);
+        }
+        flushAndClose();
+    }
+
+//    @Test(expected = LoggerAppendException.class)
+//    public void shouldThrowLoggerAppendException () throws LoggerAppendException {
+//        String toWrite = "primitive: 5";
+//        when(message.getResult()).thenReturn(toWrite);
+//        deleteFilesAndFolder();
+//        writer.write(message);
+//    }
 }
