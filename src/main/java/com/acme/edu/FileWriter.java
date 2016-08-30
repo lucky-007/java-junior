@@ -6,6 +6,8 @@ import com.acme.edu.message.Message;
 
 import java.io.*;
 
+import static java.lang.Thread.sleep;
+
 public class FileWriter implements Writer {
     private File filePath;
 
@@ -44,7 +46,19 @@ public class FileWriter implements Writer {
     public static void main(String[] args) throws LoggerAppendException {
         Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
         Message m = new Message(5);
-        m.setResult("12341234 => 5");
+        for(int i=0; i<10000; i++) {
+            m.setResult("primitive message that need to overflow the threshold " + i);
+            writer.write(m);
+            if(i%1000 == 0) {
+                System.out.println(" printing "+ i);
+            }
+        }
+        System.out.println("done");
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         writer.write(m);
     }
 }

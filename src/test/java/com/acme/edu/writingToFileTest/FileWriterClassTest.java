@@ -61,7 +61,7 @@ public class FileWriterClassTest {
 
         try {
             String file = FileUtils.readFileToString(path);
-            assertThat(file.contains(toWrite));
+            assertThat(file).contains(toWrite);
         } catch (IOException e) {
             throw new LoggerAppendException("Can't read file in tests",e);
         }
