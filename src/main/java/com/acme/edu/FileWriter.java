@@ -40,6 +40,10 @@ public class FileWriter implements Writer {
         }
     }
 
+    public File getFilePath() {
+        return filePath;
+    }
+
     @Override
     public void write(Message message) {
         out.println(message.getResult());
