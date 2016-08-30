@@ -59,8 +59,8 @@ public class FileWriter implements Writer {
         out.close();
     }
 
-//    public static void main(String[] args) throws LoggerAppendException {
-//        Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
+    public static void main(String[] args) throws LoggerAppendException {
+        Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
 //        Message m = new Message(5);
 //        for(int i=0; i<100000; i++) {
 //            m.setResult("primitive message that need to overflow the threshold " + i);
@@ -88,5 +88,5 @@ public class FileWriter implements Writer {
 //            e.printStackTrace();
 //        }
 //        writer.close();
-//    }
+    }
 }
