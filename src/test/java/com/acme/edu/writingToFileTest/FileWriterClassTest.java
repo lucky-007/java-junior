@@ -4,12 +4,16 @@ import com.acme.edu.FileWriter;
 import com.acme.edu.exceptions.LoggerAppendException;
 import com.acme.edu.interfaces.Writer;
 import com.acme.edu.message.Message;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.output.StringBuilderWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -49,7 +53,16 @@ public class FileWriterClassTest {
 
     @Test
     public void shouldCreateAndWriteToFile () throws LoggerAppendException {
-        when(message.getResult()).thenReturn("primitive: 5");
+        String toWrite = "primitive: 5";
+        when(message.getResult()).thenReturn(toWrite);
         writer.write(message);
+
+        try {
+            String file = FileUtils.readFileToString(path);
+            assertThat(file.contains(toWrite));
+        } catch (IOException e) {
+            throw new LoggerAppendException("Can't read file in tests",e);
+        }
+
     }
 }
