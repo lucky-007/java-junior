@@ -11,8 +11,6 @@ import static java.lang.Thread.sleep;
 public class FileWriter implements Writer {
     private PrintWriter out;
 
-    private File filePath;
-
     public FileWriter(File path) throws LoggerAppendException {
         String filename = path.getName();
         path = path.getAbsoluteFile();
@@ -27,7 +25,7 @@ public class FileWriter implements Writer {
             }
         }
 
-        filePath = new File(path, filename);
+        File filePath = new File(path, filename);
         try {
             out = new PrintWriter(
                     new BufferedWriter(
@@ -39,10 +37,6 @@ public class FileWriter implements Writer {
         } catch (FileNotFoundException e) {
             throw new LoggerAppendException("Can't create FileWriter", e);
         }
-    }
-
-    public File getFilePath() {
-        return filePath;
     }
 
     @Override
@@ -60,8 +54,8 @@ public class FileWriter implements Writer {
         out.close();
     }
 
-    public static void main(String[] args) throws LoggerAppendException {
-        Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
+//    public static void main(String[] args) throws LoggerAppendException {
+//        Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
 //        Message m = new Message(5);
 //        for(int i=0; i<100000; i++) {
 //            m.setResult("primitive message that need to overflow the threshold " + i);
@@ -89,5 +83,5 @@ public class FileWriter implements Writer {
 //            e.printStackTrace();
 //        }
 //        writer.close();
-    }
+//    }
 }
