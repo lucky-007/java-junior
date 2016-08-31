@@ -5,37 +5,27 @@ import com.acme.edu.interfaces.Writer;
 import com.acme.edu.message.Message;
 
 import java.io.*;
+import java.net.Socket;
 
-import static java.lang.Thread.sleep;
-
-public class FileWriter implements Writer {
+public class RemoteWriter implements Writer{
     private PrintWriter out;
 
-    public FileWriter(File path) throws LoggerAppendException {
-        path = path.getAbsoluteFile();
-
-        if (!path.getParentFile().exists()) {
-            boolean created = path.getParentFile().mkdirs();
-            if(!created) {
-                throw new LoggerAppendException("FileWriter directory wasn't created");
-            }
-        }
-
+    public RemoteWriter() throws LoggerAppendException {
         try {
             out = new PrintWriter(
                     new BufferedWriter(
                             new OutputStreamWriter(
                                     new BufferedOutputStream(
-                                            new FileOutputStream(path, true))),
+                                            new Socket("localhost", 1010).getOutputStream())),
                             32768),
                     true);
-        } catch (FileNotFoundException e) {
-            throw new LoggerAppendException("Can't create FileWriter", e);
+        } catch (IOException e) {
+            throw new LoggerAppendException("Can't create RemoteWriter", e);
         }
     }
 
     @Override
-    public void write(Message message) {
+    public void write(Message message) throws LoggerAppendException {
         out.println(message.getResult());
     }
 

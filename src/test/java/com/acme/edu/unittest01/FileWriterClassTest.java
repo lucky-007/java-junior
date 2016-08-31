@@ -1,4 +1,4 @@
-package com.acme.edu.writingToFileTest;
+package com.acme.edu.unittest01;
 
 import com.acme.edu.FileWriter;
 import com.acme.edu.exceptions.LoggerAppendException;
