@@ -10,38 +10,33 @@ import static java.lang.Thread.sleep;
 
 public class FileWriter implements Writer {
     private PrintWriter out;
-    private File filePath;
 
     public FileWriter(File path) throws LoggerAppendException {
         String filename = path.getName();
         path = path.getAbsoluteFile();
-        if(!path.isDirectory()) {
-            path = path.getParentFile();
-        }
+//        if(!path.isDirectory()) {
+//            path = path.getParentFile();
+//        }
 
-        if (!path.exists()) {
-            boolean created = path.mkdirs();
+        if (!path.getParentFile().exists()) {
+            boolean created = path.getParentFile().mkdirs();
             if(!created) {
                 throw new LoggerAppendException("FileWriter directory wasn't created");
             }
         }
 
-        filePath = new File(path, filename);
+//        filePath = new File(path, filename);
         try {
             out = new PrintWriter(
                     new BufferedWriter(
                             new OutputStreamWriter(
                                     new BufferedOutputStream(
-                                            new FileOutputStream(filePath, true))),
+                                            new FileOutputStream(path, true))),
                             32768),
                     true);
         } catch (FileNotFoundException e) {
             throw new LoggerAppendException("Can't create FileWriter", e);
         }
-    }
-
-    public File getFilePath() {
-        return filePath;
     }
 
     @Override
@@ -59,8 +54,8 @@ public class FileWriter implements Writer {
         out.close();
     }
 
-    public static void main(String[] args) throws LoggerAppendException {
-        Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
+//    public static void main(String[] args) throws LoggerAppendException {
+//        Writer writer = new FileWriter(new File(new File("logs"), "log.txt"));
 //        Message m = new Message(5);
 //        for(int i=0; i<100000; i++) {
 //            m.setResult("primitive message that need to overflow the threshold " + i);
@@ -88,5 +83,5 @@ public class FileWriter implements Writer {
 //            e.printStackTrace();
 //        }
 //        writer.close();
-    }
+//    }
 }
