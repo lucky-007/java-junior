@@ -38,4 +38,15 @@ public class RemoteWriter implements Writer{
     public void close() {
         out.close();
     }
+
+    public static void main(String[] args) {
+        try {
+            RemoteWriter remoteWriter = new RemoteWriter();
+            Message message = new Message(23);
+            message.setResult("blahblahblah");
+            remoteWriter.write(message);
+        } catch (LoggerAppendException e) {
+            e.printStackTrace();
+        }
+    }
 }
